@@ -1,0 +1,10 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/css/style.css": "/css/style.css",
+    "/admin/css/app.css": "/admin/css/app.css",
+    "/admin/simplemde.min.css": "/admin/simplemde.min.css",
+    "/admin/simplemde.min.js": "/admin/simplemde.min.js",
+    "/js/markdown-it.min.js": "/js/markdown-it.min.js",
+    "/images/no-image.png": "/images/no-image.png"
+}
