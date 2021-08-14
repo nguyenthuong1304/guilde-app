@@ -1,5 +1,5 @@
 <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
-  <div class="col-md-6 px-0">
+  <div class="col-12 px-0">
     <h1 class="display-4 fst-italic">{{ $post->name }}</h1>
 {{--    <p class="lead my-3">--}}
 {{--      Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.--}}
@@ -57,20 +57,11 @@
 {{--      </div>--}}
 
       <div class="">
-        <h4 class="fst-italic">Archives</h4>
+        <h4 class="fst-italic">Kế tiếp</h4>
         <ol class="list-unstyled mb-0">
-          <li><a href="#">March 2021</a></li>
-          <li><a href="#">February 2021</a></li>
-          <li><a href="#">January 2021</a></li>
-          <li><a href="#">December 2020</a></li>
-          <li><a href="#">November 2020</a></li>
-          <li><a href="#">October 2020</a></li>
-          <li><a href="#">September 2020</a></li>
-          <li><a href="#">August 2020</a></li>
-          <li><a href="#">July 2020</a></li>
-          <li><a href="#">June 2020</a></li>
-          <li><a href="#">May 2020</a></li>
-          <li><a href="#">April 2020</a></li>
+          @foreach($relates as $postR)
+            <li><a href="{{ route('detail', $postR->slug) }}"> {{ $postR->name }}</a></li>
+          @endforeach
         </ol>
       </div>
 

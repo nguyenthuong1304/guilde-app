@@ -12,11 +12,6 @@ class PostController extends Controller
         return view('home');
     }
 
-    public function show(Request $request, $slug)
-    {
-        return view('post', ['post' => $slug]);
-    }
-
     public function byCategory($id)
     {
         $category = Category::with('posts')->findOrFail($id);
