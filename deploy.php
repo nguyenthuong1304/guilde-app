@@ -20,11 +20,12 @@ set('git_tty', false);
 
 host('3.139.84.92')
     ->user('deploy')
+    ->identityFile('~/.ssh/deployerkey')
     ->set('deploy_path', '/var/www/html/{{application}}')
     ->forwardAgent(false);
 
 task('build:fast', function () {
-    run('cd {{deploy_path}} && git pull origin develop');
+    run('cd {{deploy_path}} && git pull origin master');
     run('cd {{deploy_path}} && php artisan config:clear; php artisan migrate; composer dump-autoload; npm run dev');
 });
 
