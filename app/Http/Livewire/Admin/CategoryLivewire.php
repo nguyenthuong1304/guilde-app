@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Services\FileService;
 use App\Traits\MixedComponent;
 use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
@@ -49,11 +50,11 @@ class CategoryLivewire extends BaseComponent
             ->section($this->section);
     }
 
-    public function save()
+    public function save(FileService $fileService)
     {
         try {
-            $this->image = Storage::putFile('category', $this->image);
-            $this->cateService->save([
+            $this->image = $fileService->save($this->image, 'category');
+            Category::create([
                 'name' => $this->name,
                 'description' => $this->description,
                 'parent_id' => $this->parent_id,
