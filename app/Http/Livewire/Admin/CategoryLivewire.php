@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Admin;
 use App\Services\FileService;
 use App\Traits\MixedComponent;
 use App\Models\Category;
-use Illuminate\Support\Facades\Storage;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 
@@ -53,7 +52,9 @@ class CategoryLivewire extends BaseComponent
     public function save(FileService $fileService)
     {
         try {
-            $this->image = $fileService->save($this->image, 'category');
+            if ($this->image) {
+                $this->image = $fileService->save($this->image, 'category');
+            }
             Category::create([
                 'name' => $this->name,
                 'description' => $this->description,

@@ -9,11 +9,10 @@ class PostDetail extends Component
 {
     public $post;
 
-    public function mount($id, $slug)
+    public function mount($slug)
     {
         $this->post = Post::where([
             'slug' => $slug,
-            'id' => $id
         ])->firstOrFail();
     }
 

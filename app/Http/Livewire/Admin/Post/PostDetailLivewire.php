@@ -132,9 +132,9 @@ class PostDetailLivewire extends BaseComponent
 
     public function resetForm(): void
     {
-        foreach ($this->form as $item)
-            if (isset($this->form[$item]))
-                $this->form[$item] = null;
+        foreach ($this->form as $key => $item)
+            if (isset($this->form[$key]))
+                $this->form[$key] = is_array($this->form[$key]) ? [] : null;
     }
 
     public function updateSlug($name): void

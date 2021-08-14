@@ -10,7 +10,8 @@ use App\Models\Post;
 
 Auth::routes();
 Route::get('/', [PostController::class, 'index'])->name('home');
-Route::get('{id}/post/{slug}', PostDetail::class)->name('detail');
+Route::get('/category/{id}', [PostController::class, 'byCategory'])->name('category');
+Route::get('/post/{slug}', PostDetail::class)->name('detail');
 
 Route::group([
     'prefix' => 'admin',

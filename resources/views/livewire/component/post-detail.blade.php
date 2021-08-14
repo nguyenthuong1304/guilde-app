@@ -1,5 +1,18 @@
 @section('styles')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
+<style>
+  #render > thead, tbody, tfoot, tr, td, th {
+    border: 1px solid #ddd !important;
+    padding: 5px;
+  }
+  #render th {
+    text-align: center;
+  }
+
+  #render td a {
+    text-decoration: none;
+  }
+</style>
 @stop
 <div>
   <div class="card mb-4">
@@ -7,7 +20,7 @@
       {!! nl2br(e($post->description)) !!}
     </div>
   </div>
-  <div id="render" data-markdown="{{ $post->content }}"></div>
+  <div class="mb-5" id="render" data-markdown="{{ $post->content }}"></div>
 </div>
 @section('scripts')
 <script src="{{ asset('js/markdown-it.min.js') }}"></script>
@@ -15,9 +28,9 @@
 <script>
   $(document).ready(function() {
     var md = window.markdownit({
-      // html: true,
-      // linkify: true,
-      // typographer: true,
+      html: true,
+      linkify: true,
+      typographer: true,
       quotes: '“”‘’',
       xhtmlOut: false,
       langPrefix: 'language-',
