@@ -26,14 +26,14 @@ jobs:
       with:
         fetch-depth: 1
 
-    - name: Install composer dependencies
-      run: |
-        composer install --no-scripts
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
 
-    - name: Prepare Laravel Application
-      run: |
-        cp .env.ci .env
-        php artisan key:generate
+    - name: Install Dependencies
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-    - name: Run Testsuite
-      run: vendor/bin/phpunit tests/
+    - name: Generate key
+      run: php artisan key:generate
+
+    - name: Execute tests (Unit and Feature tests) via PHPUnit
+      run: vendor/bin/phpunit
