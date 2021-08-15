@@ -80,3 +80,26 @@
 		margin-bottom: 0;
 	}
 }
+
+.tags {
+  background-color: #f4f4f5;
+  border-color: #e9e9eb;
+  color: #909399;
+  height: 28px;
+  line-height: 26px;
+  padding: 0 10px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  margin-bottom: 0;
+  max-width: 200px;
+  font-size: 12px !important;
+  display: inline-block;
+
+  &:not(:last-child) {
+    margin-right: 5px;
+  }
+}
