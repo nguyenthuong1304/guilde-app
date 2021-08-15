@@ -32,24 +32,17 @@ jobs:
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-    - name: Add phpcs
-      run: |
-        composer global require "squizlabs/php_codesniffer=*"
-        composer global config bin-dir --absolute
+    # - name: Add phpcs
+    #   run: |
+    #     composer global require "squizlabs/php_codesniffer=*"
+    #     composer global config bin-dir --absolute
 
-    - name: Add standard
-      run: |
-        git clone https://github.com/wataridori/framgia-php-codesniffer.git ~/.composer/vendor/squizlabs/php_codesniffer/src/Standards/Framgia
-    - name: config installed path
-      run: |
-        export PATH="$PATH:$HOME/.composer/vendor/bin"
-        cd ~/.composer/vendor/bin
-        ls
-        ~/.composer/vendor/bin/phpcs --config-set installed_paths ~/.composer/vendor/squizlabs/php_codesniffer/src/Standards/Framgia
-
-    - name: Check phpcs
-      run: |
-        sudo ~/.config/composer/vendor/bin/phpcs --standard=Framgia app --ignore=*/app/Lib/*
+    # - name: Install dependencies
+    #   run: composer install --dev --prefer-dist --no-progress --no-suggest
+    # - name: PHPCS check
+    #   uses: chekalsky/phpcs-action@v1
+    #   with:
+    #     phpcs_bin_path: 'vendor/bin/phpcs'
 
     - name: Generate key
       run: php artisan key:generate
