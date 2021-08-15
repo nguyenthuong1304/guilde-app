@@ -18,7 +18,9 @@
       <a class="blog-header-logo text-dark" href="/">Chia sẻ lập trình</a>
     </div>
     <div class="col-4 d-flex justify-content-end align-items-center">
-      <livewire:component.search-all />
+      @if(request()->route()->getName() != 'search')
+        <livewire:component.search-all />
+      @endif
       @auth
       <div>
         <a class="btn btn-sm btn-outline-secondary" href="{{ route('dashboard') }}">Goto admin</a>

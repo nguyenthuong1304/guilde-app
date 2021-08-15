@@ -9,6 +9,8 @@ class SearchPost extends Component
 {
     public string $term;
 
+    public string $orderBy = 'created_at';
+
     public function mount()
     {
         $this->term = request()->get('search') ?? '';
@@ -21,11 +23,20 @@ class SearchPost extends Component
         if ($this->term) {
             $query->search($this->term);
         }
-        $posts = $query->orderBy('views')
+        $posts = $query->orderBy($this->orderBy)
             ->paginate(40);
 
         return view('livewire.search-post', compact('posts'))
             ->extends('layouts.app')
             ->section('main');
+    }
+
+    public function updateOrderBy($orderBy)
+    {
+        if ($orderBy == $this->orderBy) {
+            return;
+        }
+
+        $this->orderBy = $orderBy;
     }
 }

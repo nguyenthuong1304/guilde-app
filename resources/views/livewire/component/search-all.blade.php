@@ -32,9 +32,9 @@
       if (~e.target.className.indexOf('search')) {
         searchWrapper.classList.add('focused');
         searchInput.focus();
-        $('.dropdown-menu').addClass('show');
+        $('.search-wrapper .dropdown-menu').addClass('show');
       } else {
-        $('.dropdown-menu').removeClass('show');
+        $('.search-wrapper .dropdown-menu').removeClass('show');
         if (!searchInput.value.length) {
           searchWrapper.classList.remove('focused');
         }

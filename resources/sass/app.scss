@@ -10,6 +10,17 @@
   100% { transform: rotate(360deg); }
 }
 
+.banner {
+  text-align: center;
+  margin-top: 10px;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    max-width: 1080px;
+  }
+}
+
 .text-dots {
   text-overflow: ellipsis;
   white-space: nowrap;

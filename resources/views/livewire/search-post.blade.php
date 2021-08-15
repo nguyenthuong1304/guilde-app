@@ -15,12 +15,11 @@
         <span class="mb-0" style="line-height: 2;">Từ khoá : {{ $term }}</span>
         <div class="dropdown">
           <button class="btn btn-sm btn-secondary" type="button" id="dropdownSort">
-            Sắp xếp theo : <span>ngày đăng</span>
+            Sắp xếp theo : <span> {{ $orderBy == 'created_at' ? 'ngày đăng' : 'lượt xem'}}</span>
           </button>
           <ul class="dropdown-menu" id="ul-dropdownSort">
-            <li><a class="dropdown-item" href="#">Ngày đăng</a></li>
-            <li><a class="dropdown-item" href="#">Lượt xem</a></li>
-            <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+            <li><a class="dropdown-item" href="#" wire:click="updateOrderBy('created_at')">Ngày đăng</a></li>
+            <li><a class="dropdown-item" href="#" wire:click="updateOrderBy('views')">Lượt xem</a></li>
           </ul>
         </div>
       </div>
@@ -28,14 +27,13 @@
       <div class="d-flex text-muted pt-3">
         <img class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="35" height="35" src="{{ asset('storage/'.$post->image) }}" alt="">
         <p class="pb-3 mb-0 small lh-sm border-bottom w-100">
-          <strong class="d-block text-gray-dark"> {{ $post->name }}</strong>
+          <a class="text-decoration-none" href="{{ route('detail', $post->slug) }}">
+            <strong class="d-block text-gray-dark"> {{ $post->name }}</strong>
+          </a>
           <span class="text-desc">{{ $post->description }}</span>
         </p>
       </div>
       @endforeach
-      <small class="d-block text-end mt-3">
-        <a href="#">All updates<a>
-      </small>
     </div>
   </div>
   <div class="col-3 col-md-12"></div>
@@ -47,6 +45,7 @@
     overflow: hidden;
     font-size: 14px;
   }
+
   .shows {
     display: block !important;
   }
@@ -57,8 +56,8 @@
 </style>
 @push('scripts')
 <script>
-  $(document).ready(function () {
-    $('#dropdownSort').click(function (e) {
+  $(document).ready(function() {
+    $('#dropdownSort').click(function(e) {
       e.preventDefault();
       $('#ul-dropdownSort').toggleClass('shows');
     })

@@ -17,11 +17,9 @@
 </head>
 
 <body>
-  <div class="container">
+  <main class="container">
     @include('layouts.header')
     @include('layouts.nav')
-  </div>
-  <main class="container">
     @yield('main')
   </main>
   @include('layouts.footer')
