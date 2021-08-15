@@ -25,6 +25,7 @@ host('3.139.84.92')
     ->forwardAgent(false);
 
 task('build:fast', function () {
+    run('cd {{deploy_path}} && git reset --hard');
     run('cd {{deploy_path}} && git pull origin master');
     run('cd {{deploy_path}} && php artisan config:clear; php artisan migrate; composer dump-autoload; npm run dev');
 });
