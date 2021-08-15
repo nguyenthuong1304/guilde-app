@@ -2,3 +2,59 @@
   transform: scale(1.05);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
 }
+
+* {
+  box-sizing: border-box;
+}
+
+.search-wrapper {
+  position: relative;
+  border-radius: 20px;
+  transform-origin: 100% 50%;
+  width: 40px;
+  transition: 250ms ease;
+  border: 1px solid #6c757d ;
+  margin-right: 5px;
+}
+.search-wrapper.focused {
+  width: 200px;
+}
+.search-wrapper.focused input {
+  width: 100%;
+  transform: scale(1);
+}
+.search-wrapper input {
+  background: transparent;
+  border: 0;
+  color: #000;
+  outline: none;
+  width: 0;
+  overflow: hidden;
+  font-weight: 100;
+  transform: scale(0);
+  transform-origin: 0 50%;
+  transition: 275ms ease;
+  padding-right: 30px;
+}
+.search-wrapper input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.search-wrapper input::-moz-placeholder {
+  color: #6c757d;
+}
+.search-wrapper input:-ms-input-placeholder {
+  color: #6c757d;
+}
+.search-wrapper input::placeholder {
+  color: #6c757d;
+}
+.search-wrapper i {
+  position: absolute;
+  color: #6c757d;
+  font-size: 18px;
+  top: 50%;
+  right: 9px;
+  transform: translateY(-50%);
+}

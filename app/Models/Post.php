@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, Search;
 
     protected $fillable = [
         'name',
@@ -17,6 +17,13 @@ class Post extends Model
         'image',
         'category_id',
         'published',
+        'views',
+    ];
+
+    protected $searchable = [
+        'name',
+        'description',
+        'slug',
     ];
 
     protected $casts = [

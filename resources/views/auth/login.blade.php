@@ -7,7 +7,7 @@
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
     <div class="form-floating">
-      <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="floatingInput" placeholder="email@example.com">
+      <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="floatingInput" placeholder="email@example.com" value="{{ old('email') }}">
       <label for="floatingInput" class="col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
       @error('email')
       <span class="invalid-feedback" role="alert">

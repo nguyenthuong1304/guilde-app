@@ -11,15 +11,16 @@
   <script src="{{ asset('js/app.js') }}" defer></script>
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-  @yield('styles')
   @livewireStyles
+  @yield('styles')
+  @stack('styles`')
 </head>
+
 <body>
   <div class="container">
     @include('layouts.header')
     @include('layouts.nav')
   </div>
-
   <main class="container">
     @yield('main')
   </main>

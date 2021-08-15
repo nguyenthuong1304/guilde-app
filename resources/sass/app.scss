@@ -5,6 +5,17 @@
 @import 'global';
 @import "~select2/dist/css/select2.css";
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.text-dots {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .footer-basic {
 	padding: 40px 0;
 	background-color: #ffffff;
