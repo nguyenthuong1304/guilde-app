@@ -42,9 +42,9 @@ jobs:
         git clone https://github.com/wataridori/framgia-php-codesniffer.git ~/.composer/vendor/squizlabs/php_codesniffer/src/Standards/Framgia
     - name: config installed path
       run: |
-        cd /home/runner/.composer/vendor/bin
+        cd ~/.runner/composer/vendor/bin
         ls
-        /home/runner/.composer/vendor/bin/phpcs --config-set installed_paths ~/.composer/vendor/squizlabs/php_codesniffer/src/Standards/Framgia
+        ~/.runner/composer/vendor/bin/phpcs --config-set installed_paths ~/.composer/vendor/squizlabs/php_codesniffer/src/Standards/Framgia
 
     - name: Check phpcs
       run: |
