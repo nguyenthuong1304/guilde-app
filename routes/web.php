@@ -5,13 +5,16 @@ use App\Http\Livewire\Admin\CategoryLivewire;
 use App\Http\Livewire\Admin\Dashboard;
 use App\Http\Livewire\Admin\Post\PostDetailLivewire;
 use App\Http\Livewire\Admin\Post\PostLivewire;
+use App\Http\Livewire\PostIndex;
 use App\Http\Livewire\PostDetail;
+use App\Http\Livewire\SearchPost;
 use App\Models\Post;
 
 Auth::routes();
-Route::get('/', [PostController::class, 'index'])->name('home');
+Route::get('/', PostIndex::class)->name('home');
 Route::get('/category/{id}', [PostController::class, 'byCategory'])->name('category');
 Route::get('/post/{slug}', PostDetail::class)->name('detail');
+Route::get('/search', SearchPost::class)->name('search');
 
 Route::group([
     'prefix' => 'admin',

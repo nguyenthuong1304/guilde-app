@@ -6,8 +6,7 @@
   }
 
   .dropdown-item {
-    max-width: 300px;
-
+    width: 300px;
   }
 </style>
 <header class="blog-header py-3">
@@ -16,7 +15,7 @@
       <a class="link-secondary" href="#"></a>
     </div>
     <div class="col-4 text-center">
-      <a class="blog-header-logo text-dark" href="/">Chia sẽ lập trình</a>
+      <a class="blog-header-logo text-dark" href="/">Chia sẻ lập trình</a>
     </div>
     <div class="col-4 d-flex justify-content-end align-items-center">
       <livewire:component.search-all />

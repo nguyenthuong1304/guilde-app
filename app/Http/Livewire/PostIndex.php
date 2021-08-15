@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Component;
+namespace App\Http\Livewire;
 
 use App\Models\Category;
 use Livewire\Component;
@@ -17,8 +17,10 @@ class PostIndex extends Component
             'posts' => fn ($q) => $q->published()->orderBy('id')->limit($this->numPost),
         ])->withCount('posts')->get();
 
-        return view('livewire.component.post-index', [
+        return view('home', [
             'categories' => $categories,
-        ]);
+        ])
+            ->extends('layouts.app')
+            ->section('main');
     }
 }
