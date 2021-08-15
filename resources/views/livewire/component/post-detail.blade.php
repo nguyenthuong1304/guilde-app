@@ -1,10 +1,16 @@
 @section('styles')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
 <style>
-  #render > thead, tbody, tfoot, tr, td, th {
+  #render>thead,
+  tbody,
+  tfoot,
+  tr,
+  td,
+  th {
     border: 1px solid #ddd !important;
     padding: 5px;
   }
+
   #render th {
     text-align: center;
   }
@@ -12,6 +18,29 @@
   #render td a {
     text-decoration: none;
   }
+
+  @keyframes placeHolderShimmer{
+    0%{
+        background-position: -500px 0
+    }
+    100%{
+        background-position: 500px 0
+    }
+}
+.linear-background {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    background-size: 1000px 104px;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
 </style>
 @stop
 <div>
@@ -20,7 +49,8 @@
       {!! nl2br(e($post->description)) !!}
     </div>
   </div>
-  <div class="mb-5" id="render" data-markdown="{{ $post->content }}"></div>
+  <div class="linear-background"></div>
+  <div class="mb-5" id="render" class="d-none" data-markdown="{{ $post->content }}"></div>
 </div>
 @section('scripts')
 <script src="{{ asset('js/markdown-it.min.js') }}"></script>
@@ -50,8 +80,9 @@
       }
     });
     var result = md.render($('#render').data('markdown'));
-    $('#render').attr('data-markdown', '')
-    $('#render').html(result)
+    $('#render').attr('data-markdown', '');
+    $('#render').html(result);
+    $('.linear-background').addClass('d-none');
   });
 </script>
 @stop
