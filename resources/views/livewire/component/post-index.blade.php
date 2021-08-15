@@ -14,7 +14,7 @@
 
   @if($category->posts_count > $numPost)
     <div class="d-flex justify-content-center">
-      <a href="{{ route('category', $category->id) }}" class="btn btn-info text-center"> View more </a>
+      <a href="{{ route('category', $category->id) }}" class="text-center"> Xem thêm </a>
     </div>
   @endif
 @endforeach

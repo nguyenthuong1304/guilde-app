@@ -4,7 +4,7 @@
       <a class="link-secondary" href="#"></a>
     </div>
     <div class="col-4 text-center">
-      <a class="blog-header-logo text-dark" href="#">Guilde App</a>
+      <a class="blog-header-logo text-dark" href="/">Chia sẽ lập trình</a>
     </div>
     <div class="col-4 d-flex justify-content-end align-items-center">
       <a class="link-secondary" href="#" aria-label="Search">
