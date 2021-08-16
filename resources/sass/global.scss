@@ -38,7 +38,7 @@ h6 {
   position: relative;
   z-index: 2;
   height: 2.75rem;
-  overflow-y: hidden;
+  // overflow-y: hidden;
 }
 
 .nav-scroller .nav {
@@ -46,7 +46,7 @@ h6 {
   flex-wrap: nowrap;
   padding-bottom: 1rem;
   margin-top: -1px;
-  overflow-x: auto;
+  // overflow-x: auto;
   text-align: center;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;

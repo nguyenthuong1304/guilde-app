@@ -18,14 +18,14 @@
             Sắp xếp theo : <span> {{ $orderBy == 'created_at' ? 'ngày đăng' : 'lượt xem'}}</span>
           </button>
           <ul class="dropdown-menu" id="ul-dropdownSort">
-            <li><a class="dropdown-item" href="#" wire:click="updateOrderBy('created_at')">Ngày đăng</a></li>
-            <li><a class="dropdown-item" href="#" wire:click="updateOrderBy('views')">Lượt xem</a></li>
+            <li><a class="dropdown-item" href="javascript:void(0)" wire:click="updateOrderBy('created_at')">Ngày đăng</a></li>
+            <li><a class="dropdown-item" href="javascript:void(0)" wire:click="updateOrderBy('views')">Lượt xem</a></li>
           </ul>
         </div>
       </div>
       @foreach($posts as $post)
       <div class="d-flex text-muted pt-3">
-        <img class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="35" height="35" src="{{ asset('storage/'.$post->image) }}" alt="">
+        <img class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="35" height="35" src="{{ $post->image }}" alt="">
         <p class="pb-3 mb-0 small lh-sm border-bottom w-100">
           <a class="text-decoration-none" href="{{ route('detail', $post->slug) }}">
             <strong class="d-block text-gray-dark"> {{ $post->name }}</strong>

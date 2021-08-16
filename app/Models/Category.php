@@ -26,4 +26,14 @@ class Category extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function getImageAttribute($value)
+    {
+        return $value ? asset('storage/'.$value) : '/images/no-image.png';
+    }
 }

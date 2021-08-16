@@ -1,4 +1,4 @@
-<div class="col">
+<div class="col" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $post->name }}">
   <div class="card shadow-sm">
     <a href="{{ route('detail', ['id' => $post->id, 'slug' => $post->slug ]) }}" class="text-decoration-none">
       <div class="card-body rounded-3">

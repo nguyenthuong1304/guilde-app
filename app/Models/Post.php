@@ -26,6 +26,11 @@ class Post extends Model
         'slug',
     ];
 
+    public function getImageAttribute($value)
+    {
+        return $value ? asset('storage/'.$value) : '/images/no-image.png';
+    }
+
     protected $casts = [
         'published_at' => 'datetime',
     ];

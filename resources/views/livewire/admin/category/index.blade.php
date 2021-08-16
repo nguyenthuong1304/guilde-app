@@ -46,15 +46,14 @@
                 @foreach($fields as $field)
                   <td style="vertical-align: middle">
                     @if($field == 'image')
-                      <img src="{{ asset('storage/'.$object->$field) }}" alt="" height="100" width="100">
+                      <img src="{{ $object->$field }}" alt="" height="100" width="100">
                     @else
                       {{ $object->$field }}
                     @endif
                   </td>
-
                 @endforeach
                 <td style="vertical-align: middle">
-                  <button class="btn btn-sm btn-warning">
+                  <button class="btn btn-sm btn-warning" wire:click="edit({{ $object->id }} )" data-bs-toggle="modal" data-bs-target="#modal-create">
                     <i class="bi bi-pencil-fill"></i>
                   </button>
                   <button class="btn btn-sm btn-danger" wire:click="deleteId({{ $object->id }} )" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -100,6 +99,7 @@
           <div>
             <form>
               @csrf
+              <input type="hidden" value="{{ $idCate }}" wire:model="idCate">
               <div class="form-group">
                 <label for="exampleInputPassword1">Enter Name</label>
                 <input type="text" wire:model.lazy="name" class="form-control input-sm" placeholder="Name">
@@ -119,7 +119,9 @@
                 <label>Parent category</label>
                 <select class="form-control" name="parent_id" id="parent_id" wire:model.lazy="parent_id">
                   <option value="" selected>Please Choose...</option>
-                  <option value="1"> Parent </option>
+                  @foreach($parents as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                  @endForeach
                 </select>
                 @error('parent_id') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
               </div>
@@ -134,3 +136,12 @@
     </div>
   </div>
 </div>
+@push('scripts')
+<script>
+$(document).ready(function () {
+  $('#modal-create').on('hidden.bs.modal', function () {
+    Livewire.emit('resetInput')
+  });
+});
+</script>
+@endpush

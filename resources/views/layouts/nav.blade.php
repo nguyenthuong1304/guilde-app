@@ -1,7 +1,16 @@
 <div class="nav-scroller py-1 mb-2">
   <nav class="nav d-flex justify-content-between">
     @foreach($categories as $cate)
-    <a class="p-2 link-secondary" href="{{ route('category', $cate->id) }}"> {{ $cate->name}} </a>
+      <div class="dropdown main-cate">
+        <a class="p-2 link-secondary" href="{{ route('category', $cate->id) }}"> {{ $cate->name}} </a>
+        @if($cate->children->count())
+        <div class="dropdown-menu">
+          @foreach($cate->children as $cateC)
+            <a class="dropdown-item" href="{{ route('category', $cateC->id) }}"> {{ $cateC->name }} </a>
+          @endforeach
+        </div>
+        @endif
+      </div>
     @endforeach
   </nav>
 </div>
