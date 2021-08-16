@@ -44,6 +44,19 @@
 @stop
 
 <div>
+  <div class="row">
+    <div class="d-flex justify-content-end bd-highlight fs-5">
+      <div class="p-2 bd-highlight">
+        <a href="javascript:void(0)" class="text-decoration-none" title="Lượt xem"><i class="bi bi-eye"></i> {{ $post->views}}</a>
+      </div>
+      <div class="p-2 bd-highlight">
+        <a href="javascript:void(0)" class="text-decoration-none" title="Coming soon"><i class="bi bi-bookmark-check"></i> 0</a>
+      </div>
+      <div class="p-2 bd-highlight">
+        <a href="javascript:void(0)" class="text-decoration-none" title="Coming soon"><i class="bi bi-chat"></i> 0</a>
+      </div>
+    </div>
+  </div>
   <div class="card mb-4">
     <div class="p-2 card-body">
       {!! nl2br(e($post->description)) !!}
