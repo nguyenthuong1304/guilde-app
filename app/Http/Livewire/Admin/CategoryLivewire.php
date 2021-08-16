@@ -67,7 +67,12 @@ class CategoryLivewire extends BaseComponent
         try {
             if ($this->image instanceof UploadedFile) {
                 $this->image = $fileService->save($this->image, 'category');
+            } else {
+                if (str_contains($this->image, 'no-image')) {
+                    $this->image = null;
+                }
             }
+
             Category::updateOrCreate(['id' => $this->idCate],[
                 'name' => $this->name,
                 'description' => $this->description,

@@ -9,7 +9,11 @@ class PostController extends Controller
 {
     public function byCategory($id)
     {
-        $category = Category::with('posts')->findOrFail($id);
+        $category = Category::with([
+            'posts',
+            'children',
+            'children.posts',
+        ])->findOrFail($id);
 
         return view('by-category', compact('category'));
     }

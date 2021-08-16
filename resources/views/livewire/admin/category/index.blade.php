@@ -23,7 +23,7 @@
             </select>
           </div>
           <div class="dataTable-search">
-            <input class="dataTable-input" placeholder="Search..." type="text" wire:model.debounce.500ms="search">
+            <input class="form-control" placeholder="Search..." type="text" wire:model.debounce.500ms="search">
           </div>
         </div>
         <div class="dataTable-container">

@@ -19,3 +19,13 @@ if (!function_exists('logInfo')) {
         getLogger()->info($info);
     }
 }
+
+/**
+ * Log info
+ */
+if (!function_exists('replaceImage')) {
+    function replaceImage(string $image)
+    {
+        return substr_replace($image, '', 0, strpos($image, '/post/') + 1);
+    }
+}

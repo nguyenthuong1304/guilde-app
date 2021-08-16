@@ -74,7 +74,7 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
           <img src="{{ asset('images/no-image.png') }}" alt="" width="150">
         @else
           @if(is_string($form['image']))
-            <img src="{{ asset('storage/'.$form['image']) }}" alt="" width="150">
+            <img src="{{ asset($form['image']) }}" alt="" width="150">
           @else
             <img src="{{ $form['image']->temporaryUrl() }}" alt="" width="150">
           @endif
@@ -86,7 +86,7 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
       </div>
       <div class="col-12">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="published" name="published" wire:model.debounce.500ms="form.published">
+          <input class="form-check-input" type="checkbox" id="published" name="published" value="{{$form['published']}}" wire:model.debounce.500ms="form.published">
           <label class="form-check-label" for="published">
             Published ?
           </label>

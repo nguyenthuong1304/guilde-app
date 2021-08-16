@@ -45,7 +45,7 @@ class PostDetailLivewire extends BaseComponent
         'form.slug' => 'required|string|unique:posts,slug',
         'form.description' => 'nullable|string|max:1000',
         'form.content' => 'required|string',
-        'form.image' => 'required|file|mimes:jpeg,jpg,png|max:4000',
+        'form.image' => 'nullable|file|mimes:jpeg,jpg,png|max:4000',
         'form.category_id' => 'required|exists:categories,id',
         'form.published' => 'nullable|boolean',
         'form.tags' => 'nullable|array',
@@ -108,7 +108,11 @@ class PostDetailLivewire extends BaseComponent
             $this->rules['form.image'] = [
                 'nullable',
                 'string',
-                Rule::exists('posts', 'image')->where('id', $this->form['id'])
+                function ($attr, $val, $fail) {
+                    if (!str_contains($val, $this->post->image)) {
+                        $fail('validation.exists');
+                    }
+                },
             ];
         } else {
             $this->rules['form.image'] = 'required|file|mimes:jpeg,jpg,png|max:4000';
@@ -118,6 +122,10 @@ class PostDetailLivewire extends BaseComponent
         if ($this->form['image'] instanceof UploadedFile) {
             $fileService->delete($this->post->image);
             $this->form['image'] = $fileService->save($this->form['image'], self::PATH);
+        } else {
+            $this->form['image'] = $this->post->image == '/images/no-image.png'
+                ? null
+                : replaceImage($this->post->image);
         }
         if ($this->form['published'] && !$this->form['published_at']) {
             $this->form['published_at'] = now();

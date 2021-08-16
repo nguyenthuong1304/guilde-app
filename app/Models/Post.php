@@ -18,6 +18,7 @@ class Post extends Model
         'category_id',
         'published',
         'views',
+        'published_at',
     ];
 
     protected $searchable = [

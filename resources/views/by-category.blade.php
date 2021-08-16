@@ -16,4 +16,9 @@
     @else
       <h1 class="text-center">Chưa có bài viết nào</>
     @endif
+
+    @if($category->children->count())
+      <div class="separator"><h3>Danh mục con</h3></div>
+      @include('partials._category-post', ['categories' => $category->children, 'numPost' => 5])
+    @endif
 @stop

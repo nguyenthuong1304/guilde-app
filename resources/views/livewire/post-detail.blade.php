@@ -1,6 +1,6 @@
 <div class="p-4 p-md-5 mb-4 mt-4 text-white rounded bg-dark">
   <div class="col-12 px-0">
-    <h1 class="display-4 fst-italic">{{ $post->name }}</h1>
+    <h1 class="display-4 text-center fst-italic">{{ $post->name }}</h1>
   </div>
 </div>
 <div class="row g-5">
