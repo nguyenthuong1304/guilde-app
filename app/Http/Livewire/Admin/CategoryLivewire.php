@@ -73,12 +73,18 @@ class CategoryLivewire extends BaseComponent
                 }
             }
 
-            Category::updateOrCreate(['id' => $this->idCate],[
+            $data = [
                 'name' => $this->name,
                 'description' => $this->description,
                 'parent_id' => $this->parent_id,
                 'image' => $this->image,
-            ]);
+            ];
+
+            if ($this->idCate) {
+                Category::findOrFail($this->idCate)->update($data);
+            } else {
+                Category::create($data);
+            }
             $this->emit('alert', [
                 'success',
                 'Create category success'

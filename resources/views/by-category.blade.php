@@ -14,7 +14,7 @@
         @endforeach
       </div>
     @else
-      <h1 class="text-center">Chưa có bài viết nào</>
+      <h1 class="text-center">Chưa có bài viết nào</h1>
     @endif
 
     @if($category->children->count())

@@ -91,7 +91,9 @@ class PostDetailLivewire extends BaseComponent
     public function store(FileService $fileService): void
     {
         $this->validate();
-        $this->form['image'] = $fileService->save($this->form['image'], self::PATH);
+        if ($this->form['image'] instanceof UploadedFile) {
+            $this->form['image'] = $fileService->save($this->form['image'], self::PATH);
+        }
         if ($this->form['published']) {
             $this->form['published_at'] = now();
         }
