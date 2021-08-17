@@ -46,7 +46,7 @@
                 @foreach($fields as $field)
                   <td style="vertical-align: middle">
                     @if($field == 'image')
-                      <img src="{{ $object->$field }}" alt="" height="100" width="100">
+                      <img src="{{ $object->image_show }}" alt="" height="100" width="100">
                     @else
                       {{ $object->$field }}
                     @endif
@@ -99,16 +99,16 @@
           <div>
             <form>
               @csrf
-              <input type="hidden" value="{{ $idCate }}" wire:model="idCate">
+              <input type="hidden" value="{{ $category->id }}" wire:model="category.id">
               <div class="form-group">
                 <label for="exampleInputPassword1">Enter Name</label>
-                <input type="text" wire:model.lazy="name" class="form-control input-sm" placeholder="Name">
-                @error('name') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
+                <input type="text" wire:model.lazy="category.name" class="form-control input-sm" placeholder="Name">
+                @error('category.name') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
               </div>
               <div class="form-group">
                 <label>Enter description</label>
-                <textarea rows="10" cols="20" class="form-control input-sm" placeholder="Enter description" wire:model.lazy="description"></textarea>
-                @error('description') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
+                <textarea rows="10" cols="20" class="form-control input-sm" placeholder="Enter description" wire:model.lazy="category.description"></textarea>
+                @error('category.description') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
               </div>
               <div class="form-group">
                 <label>Image</label>
@@ -117,13 +117,13 @@
               </div>
               <div class="form-group">
                 <label>Parent category</label>
-                <select class="form-control" name="parent_id" id="parent_id" wire:model.lazy="parent_id">
+                <select class="form-control" name="parent_id" id="parent_id" wire:model.lazy="category.parent_id">
                   <option value="" selected>Please Choose...</option>
                   @foreach($parents as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                   @endForeach
                 </select>
-                @error('parent_id') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
+                @error('category.parent_id') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
               </div>
             </form>
           </div>

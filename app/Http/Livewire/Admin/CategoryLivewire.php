@@ -20,10 +20,19 @@ class CategoryLivewire extends BaseComponent
         'resetInput' => 'resetInput',
     ];
 
+    public Category $category;
+    public $image;
+
     public $deleteId = null;
-    public $idCate, $name, $description, $image, $parent_id = null;
     public $search = '';
     public $isEdit = false;
+
+    protected $rules = [];
+
+    public function mount()
+    {
+        $this->category = Category::firstOrNew(['id' => $this->category->id ?? null]);
+    }
 
     public function updatingSearch()
     {
@@ -32,16 +41,7 @@ class CategoryLivewire extends BaseComponent
 
     public function updated($field)
     {
-        $id = $this->idCate ?? 0;
-        $this->validateOnly($field, [
-            'name' => 'required|string|max:100|unique:categories,name,'.$id,
-            'description' => 'nullable|string|max:1000',
-            'image' => 'nullable|file|mimes:jpeg,jpg,png|max:4000',
-            'parent_id' => [
-                'nullable',
-                Rule::exists('categories', 'id')->where('deleted_at')->where('parent_id')
-            ],
-        ]);
+        $this->validateOnly($field, $this->rules());
     }
 
     public function render()
@@ -64,27 +64,17 @@ class CategoryLivewire extends BaseComponent
 
     public function save(FileService $fileService)
     {
+        $this->validate();
         try {
             if ($this->image instanceof UploadedFile) {
-                $this->image = $fileService->save($this->image, 'category');
+                $this->category->image = $fileService->save($this->image, 'category');
             } else {
-                if (str_contains($this->image, 'no-image')) {
-                    $this->image = null;
+                if (str_contains($this->category->image, 'no-image')) {
+                    $this->category->image = null;
                 }
             }
-
-            $data = [
-                'name' => $this->name,
-                'description' => $this->description,
-                'parent_id' => $this->parent_id,
-                'image' => $this->image,
-            ];
-
-            if ($this->idCate) {
-                Category::findOrFail($this->idCate)->update($data);
-            } else {
-                Category::create($data);
-            }
+            unset($this->category->id);
+            $this->category->save();
             $this->emit('alert', [
                 'success',
                 'Create category success'
@@ -97,22 +87,12 @@ class CategoryLivewire extends BaseComponent
     public function edit($id)
     {
         $this->isEdit = true;
-        $Category = Category::findOrFail($id);
-        $this->name = $Category->name;
-        $this->description = $Category->description;
-        $this->parent_id = $Category->parent_id;
-        $this->idCate = $Category->id;
-        $this->image = $Category->image;
+        $this->category = Category::findOrFail($id);
     }
 
     public function resetInput()
     {
-        $this->name = null;
-        $this->description = null;
-        $this->image = null;
-        $this->parent_id = null;
-        $this->isEdit = false;
-        $this->idCate = null;
+        $this->category = new Category();
         $this->resetErrorBag();
         $this->resetValidation();
     }
@@ -130,5 +110,21 @@ class CategoryLivewire extends BaseComponent
             'success',
             'Delete category success'
         ]);
+    }
+
+    public function rules()
+    {
+        $id = $this->category->id ?? 0;
+
+        return [
+            'category.id' => 'nullable|integer',
+            'category.name' => 'required|string|max:100|unique:categories,name,'.$id,
+            'category.description' => 'nullable|string|max:1000',
+            'image' => 'nullable|file|mimes:jpeg,jpg,png|max:4000',
+            'category.parent_id' => [
+                'nullable',
+                Rule::exists('categories', 'id')->where('deleted_at')->where('parent_id')
+            ],
+        ];
     }
 }

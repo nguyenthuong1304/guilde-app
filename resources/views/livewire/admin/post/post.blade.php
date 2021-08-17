@@ -30,23 +30,23 @@
       @csrf
       <div class="col-md-6">
         <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" id="name" name="name" wire:model.debounce.500ms="form.name" wire:change="updateSlug($event.target.value)">
-        @error('form.name') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
+        <input type="text" class="form-control" id="name" name="name" wire:model.debounce.500ms="post.name" wire:change="updateSlug($event.target.value)">
+        @error('post.name') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
       </div>
       <div class="col-md-6">
         <label for="slug" class="form-label">Slug</label>
-        <input type="text" class="form-control" id="slug" name="slug" wire:model.debounce.500ms="form.slug">
-        @error('form.slug') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
+        <input type="text" class="form-control" id="slug" name="slug" wire:model.debounce.500ms="post.slug">
+        @error('post.slug') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
       </div>
       <div class="col-12">
         <label for="description" class="form-label">Description</label>
-        <textarea rows="5" type="text" class="form-control" id="description" wire:model.debounce.500ms="form.description" placeholder="Description"></textarea>
-        @error('form.description') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
+        <textarea rows="5" type="text" class="form-control" id="description" wire:model.debounce.500ms="post.description" placeholder="Description"></textarea>
+        @error('post.description') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
       </div>
       <div class="col-12" wire:ignore>
         <label for="content" class="form-label">Content</label>
-        @error('form.content') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
-        <textarea class="form-control" id="content" name="content" wire:key="form.content" wire:model.debounce.500ms="form.content" placeholder="Cú pháp Markdown được hỗ trợ. Nhấp vào ？ để xem hướng dẫn
+        @error('post.content') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
+        <textarea class="form-control" id="content" name="content" wire:key="post.content" wire:model.debounce.500ms="post.content" placeholder="Cú pháp Markdown được hỗ trợ. Nhấp vào ？ để xem hướng dẫn
 Để xuống dòng, sử dụng thẻ &lt;br&gt; hoặc nhấn Enter hai lần
 Nhấp vào 👁 hoặc nhấn 'Ctrl + P' bật/tắt chế độ xem trước
 Nhấp vào ▯▯ hoặc nhấn F9 để bật/tắt chế độ xem trước song song với soạn thảo
@@ -55,28 +55,28 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
       </div>
       <div class="col-md-4">
         <label for="category_id" class="form-label">Category</label>
-        <select id="category_id" name="category_id" class="form-select" wire:model.debounce.500ms="form.category_id">
+        <select id="category_id" name="category_id" class="form-select" wire:model.debounce.500ms="post.category_id">
           <option selected>Choose...</option>
           @foreach($categories as $category)
           <option value="{{ $category->id }}"> {{ $category->name }}</option>
           @endforeach
         </select>
-        @error('form.category_id') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
+        @error('post.category_id') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
       </div>
       <div class="col-md-8">
         <label for="inputCity" class="form-label">Image</label>
-        <input type="file" class="form-control input-sm" placeholder="image" wire:model.lazy="form.image">
-        @error('form.image') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
+        <input type="file" class="form-control input-sm" placeholder="image" wire:model.lazy="image">
+        @error('image') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
       </div>
       <div class="col-12">
         <label for="inputCity" class="form-label">Preview</label>
-        @if (!$form['image'])
+        @if (!$this->image)
           <img src="{{ asset('images/no-image.png') }}" alt="" width="150">
         @else
-          @if(is_string($form['image']))
-            <img src="{{ asset($form['image']) }}" alt="" width="150">
+          @if(is_string($image))
+            <img src="{{ asset($post->image) }}" alt="" width="150">
           @else
-            <img src="{{ $form['image']->temporaryUrl() }}" alt="" width="150">
+            <img src="{{ $image->temporaryUrl() }}" alt="" width="150">
           @endif
         @endif
       </div>
@@ -86,11 +86,11 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
       </div>
       <div class="col-12">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="published" name="published" value="{{$form['published']}}" wire:model.debounce.500ms="form.published">
+          <input class="form-check-input" type="checkbox" id="published" name="published" value="{{$post->published}}" wire:model.debounce.500ms="post.published">
           <label class="form-check-label" for="published">
             Published ?
           </label>
-          @error('form.published') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
+          @error('post.published') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
         </div>
       </div>
       <div class="col-12">

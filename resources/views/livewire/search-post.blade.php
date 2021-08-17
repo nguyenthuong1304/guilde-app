@@ -25,7 +25,7 @@
       </div>
       @foreach($posts as $post)
       <div class="d-flex text-muted pt-3">
-        <img class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="35" height="35" src="{{ $post->image }}" alt="">
+        <img class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="35" height="35" src="{{ $post->image_show }}" alt="">
         <p class="pb-3 mb-0 small lh-sm border-bottom w-100">
           <a class="text-decoration-none" href="{{ route('detail', $post->slug) }}">
             <strong class="d-block text-gray-dark"> {{ $post->name }}</strong>

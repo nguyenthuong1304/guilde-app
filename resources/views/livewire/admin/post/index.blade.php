@@ -73,7 +73,7 @@
                   {{ $post->id }}
                 </td>
                 <td style="vertical-align: middle;text-align: center">
-                  <img src="{{ $post->image }}" alt="" height="100" width="100">
+                  <img src="{{ $post->image_show }}" alt="" height="100" width="100">
                 </td>
                 <td style="vertical-align: middle">
                   {{ $post->name }}

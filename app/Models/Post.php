@@ -27,9 +27,9 @@ class Post extends Model
         'slug',
     ];
 
-    public function getImageAttribute($value)
+    public function getImageShowAttribute()
     {
-        return $value ? asset('storage/'.$value) : '/images/no-image.png';
+        return $this->image ? asset('storage/'.$this->image) : '/images/no-image.png';
     }
 
     protected $casts = [

@@ -11,7 +11,7 @@ class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $guarded = [];
+    protected $guarded = ['tags'];
 
     public static function booted()
     {
@@ -32,8 +32,8 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id');
     }
 
-    public function getImageAttribute($value)
+    public function getImageShowAttribute()
     {
-        return $value ? asset('storage/'.$value) : '/images/no-image.png';
+        return $this->image ? asset('storage/'.$this->image) : '/images/no-image.png';
     }
 }
