@@ -23,7 +23,7 @@ class SearchPost extends Component
         if ($this->term) {
             $query->search($this->term);
         }
-        $posts = $query->orderBy($this->orderBy)
+        $posts = $query->orderBy($this->orderBy, 'desc')
             ->paginate(40);
 
         return view('livewire.search-post', compact('posts'))
