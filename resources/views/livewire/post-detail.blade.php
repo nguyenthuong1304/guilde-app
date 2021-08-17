@@ -10,6 +10,11 @@
 
   <div class="col-md-2">
     <div class="position-sticky" style="top: 2rem;">
+      <div class="mt-3">
+        <h4 class="fst-italic">Mục lục</h4>
+        <div id="render-list"></div>
+      </div>
+
       <div class="">
         <h4 class="fst-italic">Kế tiếp</h4>
         <ol class="list-unstyled mb-0">
@@ -17,11 +22,6 @@
             <li><a href="{{ route('detail', $postR->slug) }}"> {{ $postR->name }}</a></li>
           @endforeach
         </ol>
-      </div>
-
-      <div class="mt-3">
-        <h4 class="fst-italic">Mục lục</h4>
-        <div id="render-list"></div>
       </div>
     </div>
   </div>
