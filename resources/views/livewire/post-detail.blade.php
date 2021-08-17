@@ -4,11 +4,11 @@
   </div>
 </div>
 <div class="row g-5">
-  <div class="col-md-10">
+  <div class="col-lg-10">
     @livewire('component.post-detail', ['post' => $post])
   </div>
 
-  <div class="col-md-2">
+  <div class="col-lg-2 d-sm-none d-lg-block">
     <div class="position-sticky" style="top: 2rem;">
       <div class="mt-3">
         <h4 class="fst-italic">Mục lục</h4>
