@@ -103,6 +103,18 @@
       $('#render').attr('data-markdown', '');
       $('#render').html(result);
       $('.linear-background').addClass('d-none');
+      const eleRenderList = $('#render-list');
+      if (eleRenderList.length) {
+        let newList = '<ol class="list-unstyled">';
+        $('#render').find('h1, h2').each((id, el) => {
+          let lv = el.tagName === 'H1' ? '1' : '2';
+          let className = (Math.random() + 1).toString(36).substring(2);
+          $(el).attr('id', className);
+          newList += `<li class="list-level-${lv}"><a href="#${className}" class="text-decoration-none">${el.innerText}</a></li>`;
+        });
+        newList += '</ol>';
+        eleRenderList.replaceWith(newList);
+      }
     });
   </script>
 @stop

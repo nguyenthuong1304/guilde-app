@@ -42,6 +42,16 @@ class PostDetailLivewire extends BaseComponent
     public function mount(int|null $id = null)
     {
         $this->post = Post::with('tags')->firstOrNew(['id' => $id]);
+        if ($cloneId = request()->get('clone_id')) {
+            if ($postClone = Post::with('tags:id')->find($cloneId)) {
+                $this->post->name = $postClone->name . ' (copy)';
+                $this->post->slug = $postClone->slug . '-copy';
+                $this->post->category_id = $postClone->category_id;
+                $this->post->published = $postClone->published;
+                $this->ids = $postClone->tags->pluck('id')->toArray();
+            }
+        }
+
         if ($id) {
             $this->ids = $this->post->tags->pluck('id')->toArray();
         }
@@ -74,9 +84,6 @@ class PostDetailLivewire extends BaseComponent
                 $this->post->published_at = now();
             }
             $this->savePost();
-            session()->flash('message', ['type' => 'success', 'message' => 'Create post successfully']);
-            $this->resetForm();
-            $this->redirectRoute('post_index');
         } catch (Exception $e) {
             dd($e);
         }
@@ -110,8 +117,6 @@ class PostDetailLivewire extends BaseComponent
             $this->post->published_at = now();
         }
         $this->savePost();
-        session()->flash('message', ['type' => 'success', 'message' => 'Update post successfully']);
-        $this->redirectRoute('post_index');
     }
 
     public function resetForm(): void
@@ -147,14 +152,36 @@ class PostDetailLivewire extends BaseComponent
             'post.category_id' => 'required|exists:categories,id',
             'post.published' => 'nullable|boolean',
             'post.tags' => 'nullable|array',
-            'post.tags.*' => 'integer|exists:tags,id',
+            'post.tags.*' => [
+                function ($attr, $val, $fail) {
+                    if (is_numeric($val)) {
+                        if (Tag::where('id', $val)->exists()) {
+                            $fail(__('validation.exists'));
+                        }
+                    }
+                },
+            ],
         ];
     }
 
     private function savePost()
     {
         unset($this->post->tags);
+        $this->handleTag();
         $this->post->tags()->sync($this->ids);
         $this->post->save();
+        session()->flash('message', ['type' => 'success', 'message' => 'Create post successfully']);
+        $this->redirectRoute('post_index');
+    }
+
+    private function handleTag()
+    {
+        $this->ids = array_map(function ($tag) {
+            if (!is_numeric($tag)) {
+                return Tag::firstOrCreate(['name' => $tag, 'count_click' => 0])->id;
+            }
+
+            return $tag;
+        }, $this->ids);
     }
 }

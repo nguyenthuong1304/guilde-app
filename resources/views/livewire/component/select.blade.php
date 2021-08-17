@@ -19,13 +19,13 @@
         closeOnSelect: false,
         @if($isMulti)
           tags: true,
-          // createTag: function (params) {
-          //   return {
-          //     id: params.term,
-          //     text: params.term,
-          //     newOption: true
-          //   }
-          // },
+          createTag: function (params) {
+            return {
+              id: params.term,
+              text: params.term,
+              newOption: true
+            }
+          },
         @endif
       });
       $('#select2-dropdown').on('change', function (e) {

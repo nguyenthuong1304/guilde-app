@@ -20,12 +20,8 @@
       </div>
 
       <div class="mt-3">
-        <h4 class="fst-italic">Series</h4>
-        <ol class="list-unstyled">
-          <li><a href="#">GitHub</a></li>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">Facebook</a></li>
-        </ol>
+        <h4 class="fst-italic">Mục lục</h4>
+        <div id="render-list"></div>
       </div>
     </div>
   </div>

@@ -104,6 +104,9 @@
                   <button class="btn btn-sm btn-danger" wire:click="deleteId({{ $post->id }} )" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="bi bi-trash-fill"></i>
                   </button>
+                  <a class="btn btn-sm btn-primary text-white" href="{{ route('post.create', ['clone_id' => $post->id]) }}" :wire:key="$post->id" title="Copy thể loại">
+                    <i class="bi bi-clipboard-plus"></i>
+                  </a>
                 </td>
               </tr>
               @endforeach

@@ -2,7 +2,10 @@
   <section class="text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">{{ $category->name }} ({{ $category->posts->count() }} posts)</h1>
+        <h1 class="fw-light">
+          <a class="text-decoration-none text-dark" href="{{ route('category', $category->id) }}">{{ $category->name }} ({{ $category->posts->count() }} posts)</a>
+          <hr>
+        </h1>
       </div>
     </div>
   </section>
