@@ -14,6 +14,6 @@
     @endforeach
   </nav>
 </div>
-<div class="rounded banner">
+<div class="rounded banner mb-3">
   <img src="{{ asset('images/banner.jpeg') }}" alt="">
 </div>

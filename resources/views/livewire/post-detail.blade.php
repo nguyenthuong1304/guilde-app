@@ -8,7 +8,7 @@
     @livewire('component.post-detail', ['post' => $post])
   </div>
 
-  <div class="col-lg-2 d-none d-lg-block d-xl-none">
+  <div class="col-lg-2 d-block d-lg-block d-md-none">
     <div class="position-sticky" style="top: 2rem;">
       <div class="mt-3">
         <h4 class="fst-italic">Mục lục</h4>
