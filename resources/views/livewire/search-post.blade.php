@@ -1,13 +1,8 @@
 <div class="row">
   <div class="col-lg-9 col-md-12">
     <div class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
-      <div class="col-10">
-        <input type="text" class="form-control w-100">
-      </div>
-      <div class="col-2">
-        <button class="ms-3 btn btn-primary">
-          <i class="bi bi-search"></i> Tìm kiếm
-        </button>
+      <div class="col-12">
+        <input type="text" class="form-control w-100" placeholder="Tìm kiếm gì đó ...." wire:model.debounce.800ms="term">
       </div>
     </div>
     <div class="my-3 p-3 bg-body rounded shadow-sm">
@@ -23,17 +18,22 @@
           </ul>
         </div>
       </div>
-      @foreach($posts as $post)
-      <div class="d-flex text-muted pt-3">
-        <img class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="35" height="35" src="{{ $post->image_show }}" alt="">
-        <p class="pb-3 mb-0 small lh-sm border-bottom w-100">
-          <a class="text-decoration-none" href="{{ route('detail', $post->slug) }}">
-            <strong class="d-block text-gray-dark"> {{ $post->name }}</strong>
-          </a>
-          <span class="text-desc">{{ $post->description }}</span>
-        </p>
+      <div wire:loading>
+        <div class="mt-3 text-center">Đang tìm kiếm ....</div>
       </div>
-      @endforeach
+      <div wire:loading.remove>
+        @foreach($posts as $post)
+          <div class="d-flex text-muted pt-3">
+            <img class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="35" height="35" src="{{ $post->image_show }}" alt="">
+            <p class="pb-3 mb-0 small lh-sm border-bottom w-100">
+              <a class="text-decoration-none" href="{{ route('detail', $post->slug) }}">
+                <strong class="d-block text-gray-dark"> {{ $post->name }}</strong>
+              </a>
+              <span class="text-desc">{{ $post->description }}</span>
+            </p>
+          </div>
+        @endforeach
+      </div>
     </div>
   </div>
   <div class="col-3 col-md-12"></div>
