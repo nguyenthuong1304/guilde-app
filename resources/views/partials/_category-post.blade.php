@@ -1,11 +1,14 @@
 @foreach($categories as $category)
   <section class="text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">
-          <a class="text-decoration-none text-dark" href="{{ route('category', $category->id) }}">{{ $category->name }} ({{ $category->posts->count() }} posts)</a>
+    <div class="row pt-3">
+      <div class="">
+        <hr>
+        <h3 class="fw-light">
+          <a class="text-decoration-none text-dark" href="{{ route('category', $category->id) }}">
+            {{ $category->name }} ( {{ $category->posts->count() }} posts @if($category->children_count)- {{ $category->children_count }} Danh mục con @endif)
+          </a>
           <hr>
-        </h1>
+        </h3>
       </div>
     </div>
   </section>
