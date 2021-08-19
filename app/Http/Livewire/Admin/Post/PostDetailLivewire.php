@@ -42,7 +42,6 @@ class PostDetailLivewire extends BaseComponent
     public function mount(int|null $id = null)
     {
         $this->post = Post::with('tags')->firstOrNew(['id' => $id]);
-        $this->post->published = false;
         if ($cloneId = request()->get('clone_id')) {
             if ($postClone = Post::with('tags:id')->find($cloneId)) {
                 $this->post->name = $postClone->name . ' (copy)';
@@ -55,6 +54,8 @@ class PostDetailLivewire extends BaseComponent
 
         if ($id) {
             $this->ids = $this->post->tags->pluck('id')->toArray();
+        } else {
+            $this->post->published = false;
         }
     }
 
