@@ -124,7 +124,7 @@ class PostDetailLivewire extends BaseComponent
             $this->savePost();
         } catch (Exception $e) {
             DB::rollBack();
-            dd($);
+            dd($e);
         }
     }
 
