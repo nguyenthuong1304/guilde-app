@@ -10,7 +10,6 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link href="{{ asset('admin/css/app.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
-  <script src="{{ asset('js/app.js') }}" sync></script>
   @yield('styles')
   @livewireStyles
 </head>
@@ -25,8 +24,9 @@
     @include('layouts.admin.footer')
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 @livewireScripts
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 @yield('scripts')
 <script>
   toastr.options = {
