@@ -93,22 +93,22 @@ class PostDetailLivewire extends BaseComponent
 
     public function update(FileService $fileService)
     {
+        if (is_string($this->image)) {
+            $this->rules['image'] = [
+                'nullable',
+                'string',
+                function ($attr, $val, $fail) {
+                    if (!str_contains($val, $this->post->image)) {
+                        $fail('validation.exists');
+                    }
+                },
+            ];
+        } else {
+            $this->rules['image'] = 'required|file|mimes:jpeg,jpg,png|max:4000';
+        }
+        $this->validate();
         DB::beginTransaction();
         try {
-            if (is_string($this->image)) {
-                $this->rules['image'] = [
-                    'nullable',
-                    'string',
-                    function ($attr, $val, $fail) {
-                        if (!str_contains($val, $this->post->image)) {
-                            $fail('validation.exists');
-                        }
-                    },
-                ];
-            } else {
-                $this->rules['image'] = 'required|file|mimes:jpeg,jpg,png|max:4000';
-            }
-            $this->validate();
             if ($this->image instanceof UploadedFile) {
                 $fileService->delete($this->post->image);
                 $this->post->image = $fileService->save($this->image, self::PATH);
