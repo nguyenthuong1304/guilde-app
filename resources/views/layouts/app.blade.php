@@ -7,6 +7,7 @@
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <title>Chia sẻ lập trình</title>
+  <script src="{{ asset('js/app.js') }}" async></script>
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   @livewireStyles
@@ -21,7 +22,6 @@
     @yield('main')
   </main>
   @include('layouts.footer')
-  <script src="{{ asset('js/app.js') }}" defer></script>
   @livewireScripts
   @yield('scripts')
   @stack('scripts')

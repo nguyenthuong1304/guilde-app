@@ -10,6 +10,7 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link href="{{ asset('admin/css/app.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+  <script src="{{ asset('js/app.js') }}" sync></script>
   @yield('styles')
   @livewireStyles
 </head>
@@ -24,10 +25,7 @@
     @include('layouts.admin.footer')
   </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="{{ asset('js/app.js') }}" defer></script>
 @livewireScripts
 @yield('scripts')
 <script>
