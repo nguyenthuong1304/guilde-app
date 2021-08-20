@@ -10,8 +10,8 @@ use App\Models\Post;
 use App\Services\FileService;
 use Exception;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Livewire\WithFileUploads;
 
 class PostDetailLivewire extends BaseComponent
@@ -93,32 +93,39 @@ class PostDetailLivewire extends BaseComponent
 
     public function update(FileService $fileService)
     {
-        if (is_string($this->image)) {
-            $this->rules['image'] = [
-                'nullable',
-                'string',
-                function ($attr, $val, $fail) {
-                    if (!str_contains($val, $this->post->image)) {
-                        $fail('validation.exists');
-                    }
-                },
-            ];
-        } else {
-            $this->rules['image'] = 'required|file|mimes:jpeg,jpg,png|max:4000';
-        }
-        $this->validate();
-        if ($this->image instanceof UploadedFile) {
-            $fileService->delete($this->post->image);
-            $this->post->image = $fileService->save($this->image, self::PATH);
-        } else {
-            if (str_contains($this->post->image, 'no-image')) {
-                $this->post->image = null;
+        DB::beginTransaction();
+        try {
+            if (is_string($this->image)) {
+                $this->rules['image'] = [
+                    'nullable',
+                    'string',
+                    function ($attr, $val, $fail) {
+                        if (!str_contains($val, $this->post->image)) {
+                            $fail('validation.exists');
+                        }
+                    },
+                ];
+            } else {
+                $this->rules['image'] = 'required|file|mimes:jpeg,jpg,png|max:4000';
             }
+            $this->validate();
+            if ($this->image instanceof UploadedFile) {
+                $fileService->delete($this->post->image);
+                $this->post->image = $fileService->save($this->image, self::PATH);
+            } else {
+                if (str_contains($this->post->image, 'no-image')) {
+                    $this->post->image = null;
+                }
+            }
+            if ($this->post->published && !$this->post->published_at) {
+                $this->post->published_at = now();
+            }
+            DB::commit();
+            $this->savePost();
+        } catch (Exception $e) {
+            DB::rollBack();
+            dd($);
         }
-        if ($this->post->published && !$this->post->published_at) {
-            $this->post->published_at = now();
-        }
-        $this->savePost();
     }
 
     public function resetForm(): void
