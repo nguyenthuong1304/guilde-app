@@ -23,18 +23,19 @@ class PostDetail extends Component
     {
         $this->post = Post::where([
             'slug' => $slug,
-        ])->firstOrFail();
+        ])->with('tags:name')->firstOrFail();
         $this->setHash();
         $this->relates = Post::select('id', 'slug', 'name')->where([
             ['category_id', '=', $this->post->category_id],
             ['id', '>', $this->post->id],
         ])->limit(5)->orderBy('id', 'asc')->get();
         $this->seo()->setTitle($this->post->name, false);
+        $keyWords = $this->post->tags->pluck('name')->implode(', ');
         SEOMeta::setTitle($this->post->name, false);
         SEOMeta::setDescription($this->post->description);
         SEOMeta::addMeta('article:published_time', $this->post->published_at->toW3CString(), 'property');
         SEOMeta::addMeta('article:section', $this->post->category->name, 'property');
-        SEOMeta::addKeyword($this->post->keywords ?? []);
+        SEOMeta::addKeyword($keyWords);
 
         OpenGraph::setDescription($this->post->description);
         OpenGraph::setTitle($this->post->name);
