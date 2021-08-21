@@ -128,10 +128,10 @@ ol.list-unstyled {
   .list-level-1 {
     padding-left: 5px;
     border-left: 3px solid lightblue;
-    font-size: 14px;
+    font-size: 15px;
 
     a {
-      max-width: 120px;
+      max-width: 130px;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
@@ -141,11 +141,11 @@ ol.list-unstyled {
   .list-level-2 {
     padding-left: 10px;
     padding-bottom: 3px;
-    font-size: 12px;
+    font-size: 13px;
 
     a {
       display: inline-block;
-      max-width: 120px;
+      max-width: 130px;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
