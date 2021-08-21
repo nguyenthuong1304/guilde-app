@@ -47,16 +47,10 @@ class CategoryLivewire extends BaseComponent
     public function render()
     {
         return view('livewire.admin.category.index', [
-            'objects' => Category::where('name', 'like', '%'.$this->search.'%')->orderBy('created_at')->paginate($this->perPage),
+            'categories' => Category::where('name', 'like', '%'.$this->search.'%')
+                ->orderBy('created_at')
+                ->paginate($this->perPage),
             'parents' => Category::select('id', 'name')->whereNull('parent_id')->get(),
-            'fields' => [
-                'image',
-                'id',
-                'name',
-                'parent_id',
-                'created_at',
-                'updated_at',
-            ],
         ])
             ->extends($this->extends)
             ->section($this->section);
@@ -110,6 +104,12 @@ class CategoryLivewire extends BaseComponent
             'success',
             'Delete category success'
         ]);
+    }
+
+    public function updateStatus($id)
+    {
+        $cate = Category::find($id);
+        $cate->update(['show_index_page' => !$cate->show_index_page]);
     }
 
     public function rules()

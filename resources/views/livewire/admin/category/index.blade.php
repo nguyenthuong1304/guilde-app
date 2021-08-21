@@ -30,33 +30,54 @@
           <table id="datatablesSimple" class="dataTable-table table-responsive justify-content-center">
             <thead>
             <tr>
-              @foreach($fields as $field)
-                <th data-sortable="" style="width: 19.083%;">
-                  <a href="?sort_by={{ $field }}" class="dataTable-sorter">{{ (__("fields.$field")) }}</a>
-                </th>
-              @endforeach
-              <th data-sortable="" style="width: 19.083%;">
+              <th>
+                <a href="#" class="dataTable-sorter">{{ (__("fields.image")) }}</a>
+              </th>
+              <th>
+                <a href="#" class="dataTable-sorter">{{ (__("fields.id")) }}</a>
+              </th>
+              <th>
+                <a href="#" class="dataTable-sorter">{{ (__("fields.name")) }}</a>
+              </th>
+              <th>
+                <a href="#" class="dataTable-sorter">{{ (__("fields.parent_id")) }}</a>
+              </th>
+              <th>
+                <a href="#" class="dataTable-sorter">{{ (__("fields.created_at")) }}</a>
+              </th>
+              <th>
+                <a href="#" class="dataTable-sorter">Show on index</a>
+              </th>
+              <th>
                 <a href="#" class="dataTable-sorter">{{ (__("fields.actions")) }}</a>
               </th>
             </tr>
             </thead>
             <tbody>
-            @foreach($objects as $object)
-              <tr :wire:key="{{ $object->id }}">
-                @foreach($fields as $field)
-                  <td style="vertical-align: middle">
-                    @if($field == 'image')
-                      <img src="{{ $object->image_show }}" alt="" height="100" width="100">
-                    @else
-                      {{ $object->$field }}
-                    @endif
-                  </td>
-                @endforeach
+            @foreach($categories as $category)
+              <tr :wire:key="{{ $category->id }}">
                 <td style="vertical-align: middle">
-                  <button class="btn btn-sm btn-warning" wire:click="edit({{ $object->id }} )" data-bs-toggle="modal" data-bs-target="#modal-create">
+                  <img src="{{ $category->image_show }}" alt="" height="100" width="100">
+                </td>
+                <td style="vertical-align: middle">{{ $category->id }}</td>
+                <td style="vertical-align: middle">{{ $category->name }}</td>
+                <td style="vertical-align: middle">{{ $category->parent_id }}</td>
+                <td style="vertical-align: middle">{{ $category->created_at }}</td>
+                <td style="vertical-align: middle" class="text-center">
+                  <div class="form-check form-switch">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="flexSwitchCheckChecked" {{ $category->show_index_page ? 'checked' : '' }}
+                      wire:click="updateStatus('{{ $category->id }}')"
+                    >
+                  </div>
+                </td>
+                <td style="vertical-align: middle">
+                  <button class="btn btn-sm btn-warning" wire:click="edit({{ $category->id }} )" data-bs-toggle="modal" data-bs-target="#modal-create">
                     <i class="bi bi-pencil-fill"></i>
                   </button>
-                  <button class="btn btn-sm btn-danger" wire:click="deleteId({{ $object->id }} )" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <button class="btn btn-sm btn-danger" wire:click="deleteId({{ $category->id }} )" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="bi bi-trash-fill"></i>
                   </button>
                 </td>
@@ -66,7 +87,7 @@
           </table>
         </div>
         <div class="dataTable-bottom">
-          {{ $objects->links() }}
+          {{ $categories->links() }}
         </div>
       </div>
     </div>
@@ -112,7 +133,7 @@
               </div>
               <div class="form-group">
                 <label>Image</label>
-                <input type="file" class="form-control input-sm" placeholder="image" wire:model.lazy="image"></input>
+                <input type="file" class="form-control input-sm" placeholder="image" wire:model.lazy="image" />
                 @error('image') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
               </div>
               <div class="form-group">
@@ -136,6 +157,15 @@
     </div>
   </div>
 </div>
+@section('styles')
+  <style>
+    .form-check-input {
+      width: 3em !important;
+      height: 1.5em !important;
+      margin: 0 auto !important;
+    }
+  </style>
+@stop
 @push('scripts')
 <script>
 $(document).ready(function () {

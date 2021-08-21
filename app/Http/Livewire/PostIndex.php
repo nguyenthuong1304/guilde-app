@@ -28,7 +28,11 @@ class PostIndex extends Component
 
         $categories = Category::with([
             'posts' => fn ($q) => $q->published()->orderBy('id')->limit($this->numPost),
-        ])->withCount('children')->whereNull('parent_id')->orderBy('id')->get();
+        ])->withCount('children')
+            ->whereNull('parent_id')
+            ->where('show_index_page', 1)
+            ->orderBy('id')
+            ->get();
 
         return view('home', [
             'categories' => $categories,
