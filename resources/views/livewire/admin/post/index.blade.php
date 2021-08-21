@@ -24,13 +24,34 @@
       <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
         <div class="dataTable-top">
           <div class="dataTable-dropdown">
-            <select class="dataTable-selector" wire:change="setPerPage($event.target.value)">
-              <option value="5">5</option>
-              <option value="10" selected="">10</option>
-              <option value="15">15</option>
-              <option value="20">20</option>
-              <option value="25">25</option>
-            </select>
+            <label>
+              Show
+              <select class="dataTable-selector" wire:change="setPerPage($event.target.value)">
+                <option value="5">5</option>
+                <option value="10" selected="">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+              </select>
+            </label>
+
+            <label>
+              - Sắp xếp theo:
+              <select class="dataTable-selector" wire:model.debounce.500ms="orderBy">
+                <option value="created_at">Ngày đăng</option>
+                <option value="id">ID</option>
+                <option value="views">Lượt xem</option>
+                <option value="published_at">Ngày xuất bản</option>
+                <option value="published">Trạng tháin</option>
+              </select>
+
+              <label>
+                - Thứ tự:
+                <select class="dataTable-selector" wire:model.debounce.500ms="order">
+                  <option value="desc">Giảm dần</option>
+                  <option value="asc">Tăng dần</option>
+                </select>
+            </label>
           </div>
           <div class="dataTable-search">
             <input class="form-control" placeholder="Search..." type="text" wire:model.debounce.500ms="search">
@@ -54,6 +75,9 @@
                 </th>
                 <th>
                   <a href="#" class="dataTable-sorter">Category</a>
+                </th>
+                <th>
+                  <a href="#" class="dataTable-sorter">Views</a>
                 </th>
                 <th>
                   <a href="#" class="dataTable-sorter">Published</a>
@@ -83,6 +107,9 @@
                 </td>
                 <td class="max-text" style="vertical-align: middle">
                   {{ $post->category->name }}
+                </td>
+                <td class="max-text" style="vertical-align: middle">
+                  {{ $post->views }}
                 </td>
                 <td style="vertical-align: middle; text-align: center">
                   @if($post->published)

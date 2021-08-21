@@ -3,10 +3,13 @@
 namespace App\Http\Livewire;
 
 use App\Models\Post;
+use Artesaos\SEOTools\Traits\SEOTools;
 use Livewire\Component;
 
 class SearchPost extends Component
 {
+    use SEOTools;
+
     public $term;
     public $tag_id;
     protected $queryString = ['term', 'tag_id'];
@@ -15,6 +18,8 @@ class SearchPost extends Component
 
     public function render()
     {
+        $this->seo()->setTitle('Chia sẽ lập trình', false);
+
         $query = Post::query();
 
         if ($this->term) {

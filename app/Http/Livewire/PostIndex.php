@@ -16,7 +16,7 @@ class PostIndex extends Component
 
     public function render()
     {
-        $this->seo()->setTitle('Chia sẽ lập trình');
+        $this->seo()->setTitle('Chia sẽ lập trình', false);
         $this->seo()->setDescription('Trang web nhằm mục đích chia sẽ lập tình miễn phí cho người mới bắt đầu, và chia sẽ kiến thức lập trình đến mọi người');
         $this->seo()->opengraph()->setUrl(request()->url());
         $this->seo()->opengraph()->addProperty('site_name', 'SharingPrograming');
