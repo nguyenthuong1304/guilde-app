@@ -52,9 +52,11 @@
       <div class="p-2 bd-highlight">
         <a href="javascript:void(0)" class="text-decoration-none" title="Coming soon"><i class="bi bi-bookmark-check"></i> 0</a>
       </div>
-      <div class="p-2 bd-highlight">
-        <a href="javascript:void(0)" class="text-decoration-none" title="Coming soon"><i class="bi bi-chat"></i> 0</a>
-      </div>
+      @if(request()->route()->getName() == 'detail')
+        <div class="p-1 bd-highlight">
+          <div class="fb-share-button" data-href="{{ request()->url() }}" data-layout="button"></div>
+        </div>
+      @endif
     </div>
   </div>
   <div class="card mb-4">

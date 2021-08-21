@@ -39,7 +39,8 @@ class PostDetail extends Component
 
         OpenGraph::setDescription($this->post->description);
         OpenGraph::setTitle($this->post->name);
-        OpenGraph::setUrl(request()->url);
+        OpenGraph::setUrl(request()->url());
+        OpenGraph::addImage('http://localhost:81/images/banner.jpeg');
         OpenGraph::addProperty('locale', 'vn-vn');
         OpenGraph::addProperty('locale:alternate', ['vn-vn', 'en-us']);
 
