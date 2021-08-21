@@ -128,11 +128,6 @@ class PostDetailLivewire extends BaseComponent
         }
     }
 
-    public function resetForm(): void
-    {
-        $this->post = new Post();
-    }
-
     public function updateSlug($name): void
     {
         $this->post->slug = Str::slug($name);

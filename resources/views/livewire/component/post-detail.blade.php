@@ -108,14 +108,29 @@
       const eleRenderList = $('#render-list');
       if (eleRenderList.length) {
         let newList = '<ol class="list-unstyled">';
-        $('#render').find('h1, h2').each((id, el) => {
-          let lv = el.tagName === 'H1' ? '1' : '2';
+        $('#render').find('h1, h2, h3, h4, h5, h6').each((id, el) => {
+          $(el).replaceWith(function () {
+            let newTag;
+            switch (el.tagName) {
+              case 'H1': newTag = 'h2'; break;
+              case 'H2': newTag = 'h3'; break;
+              case 'H3': newTag = 'h4'; break;
+              case 'H4': newTag = 'h5'; break;
+              case 'H5': newTag = 'h6'; break;
+              default: newTag = 'p';
+            }
+
+            return `<${newTag}> ${$(this).html()} </${newTag}>`;
+          });
+
+          let lv = el.tagName === 'H2' ? '2' : '1';
           let className = (Math.random() + 1).toString(36).substring(2);
           $(el).attr('id', className);
-          newList += `<li class="list-level-${lv}"><a href="#${className}" class="text-decoration-none">${el.innerText}</a></li>`;
+          newList += `<li class="list-level-${lv}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="${$(el).html()}"><a href="#${className}" class="text-decoration-none">${el.innerText}</a></li>`;
         });
         newList += '</ol>';
         eleRenderList.replaceWith(newList);
+        $('[data-bs-toggle="tooltip"]').tooltip();
       }
     });
   </script>

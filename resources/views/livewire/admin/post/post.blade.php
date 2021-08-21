@@ -30,6 +30,7 @@
       @csrf
       <div class="col-md-6">
         <label for="name" class="form-label">Name</label>
+        <span wire:dirty wire:target="post.name">Updating...</span>
         <input type="text" class="form-control" id="name" name="name" wire:model.debounce.500ms="post.name" wire:change="updateSlug($event.target.value)">
         @error('post.name') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
       </div>

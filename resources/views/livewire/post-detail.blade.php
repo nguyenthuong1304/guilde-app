@@ -14,15 +14,6 @@
         <h4 class="fst-italic">Mục lục</h4>
         <div id="render-list"></div>
       </div>
-
-      <div class="">
-        <h4 class="fst-italic">Kế tiếp</h4>
-        <ol class="list-unstyled mb-0">
-          @foreach($relates as $postR)
-            <li><a href="{{ route('detail', $postR->slug) }}"> {{ $postR->name }}</a></li>
-          @endforeach
-        </ol>
-      </div>
     </div>
   </div>
 </div>
