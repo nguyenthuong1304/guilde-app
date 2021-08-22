@@ -19,6 +19,9 @@
 </head>
 
 <body>
+  <a id="to-top" href="#">
+    <i class="bi bi-arrow-up" title="Back to top"></i>
+  </a>
   <main class="container">
     @include('layouts.header')
     @include('layouts.nav')

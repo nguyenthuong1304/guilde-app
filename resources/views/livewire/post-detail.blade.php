@@ -11,20 +11,20 @@
       </div>
       <hr>
       <div>
-        <div class="row col-lg-12 mb-3" id="loadPost">
-          <h3>Liên quan </h3>
-          @foreach($relates as $rela)
-            <div class="col-lg-3">
-              @livewire('component.card-post', ['post' => $rela], key($loop->index))
-            </div>
-          @endforeach
-        </div>
-        <hr>
         <div class="row col-lg-12 mb-3">
           <h3>Top views</h3>
           @foreach($mostPosts as $mostPost)
             <div class="col-lg-3" :wire:key="$loop->index">
               @livewire('component.card-post', ['post' => $mostPost], key($loop->index))
+            </div>
+          @endforeach
+        </div>
+        <hr>
+        <div class="row col-lg-12 mb-3" id="loadPost">
+          <h3>Liên quan </h3>
+          @foreach($relates as $rela)
+            <div class="col-lg-3">
+              @livewire('component.card-post', ['post' => $rela], key($loop->index))
             </div>
           @endforeach
         </div>
