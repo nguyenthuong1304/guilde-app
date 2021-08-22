@@ -6,7 +6,7 @@ use App\Http\Livewire\Admin\BaseComponent;
 use App\Models\Post;
 use Livewire\WithPagination;
 
-class PostLivewire extends BaseComponent
+class AdminPostIndex extends BaseComponent
 {
     use WithPagination;
 

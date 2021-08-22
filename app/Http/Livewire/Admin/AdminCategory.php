@@ -10,7 +10,7 @@ use Illuminate\Validation\Rule;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 
-class CategoryLivewire extends BaseComponent
+class AdminCategory extends BaseComponent
 {
     use WithPagination, WithFileUploads, MixedComponent;
 

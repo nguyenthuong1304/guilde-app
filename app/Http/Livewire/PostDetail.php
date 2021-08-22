@@ -17,7 +17,13 @@ class PostDetail extends Component
 
     public $post;
 
-    public $relates = [];
+    public $relates;
+
+    public $mostPosts;
+
+    public bool $readyToLoad = false;
+
+    protected $listeners = ['loadPost'];
 
     public function mount($slug)
     {
@@ -25,10 +31,7 @@ class PostDetail extends Component
             'slug' => $slug,
         ])->with('tags:name')->firstOrFail();
         $this->setHash();
-        $this->relates = Post::select('id', 'slug', 'name')->where([
-            ['category_id', '=', $this->post->category_id],
-            ['id', '>', $this->post->id],
-        ])->limit(5)->orderBy('id', 'asc')->get();
+
         $this->seo()->setTitle($this->post->name, false);
         $keyWords = $this->post->tags->pluck('name')->implode(', ');
         SEOMeta::setTitle($this->post->name, false);
@@ -48,14 +51,32 @@ class PostDetail extends Component
         JsonLd::setDescription($this->post->resume);
         JsonLd::setType('Article');
         JsonLd::addImage($this->post->show_image);
+
+        $this->relates = [];
+        $this->mostPosts = [];
     }
 
     public function render()
     {
-        return view('livewire.post-detail', [
-            'post' => $this->post,
-            'relates' => $this->relates,
-        ])
+        if ($this->readyToLoad) {
+            $this->relates = Post::select('id', 'slug', 'name', 'created_at', 'views')->where([
+                ['category_id', '=', $this->post->category_id],
+                ['id', '!=', $this->post->id],
+            ])
+                ->limit(4)
+                ->orderBy('id', 'asc')
+                ->get();
+
+            $this->mostPosts = Post::select('id', 'slug', 'name', 'created_at', 'views')->where([
+                ['id', '!=', $this->post->id],
+            ])
+                ->whereNotIn('id', $this->relates->pluck('id'))
+                ->limit(4)
+                ->orderBy('views', 'desc')
+                ->get();
+        }
+
+        return view('livewire.post-detail')
             ->extends('layouts.app')
             ->section('main');
     }
@@ -69,6 +90,12 @@ class PostDetail extends Component
         }
 
         $this->saveRedis($key);
+    }
+
+    public function loadPost()
+    {
+        $this->readyToLoad = true;
+        $this->emit('refresh');
     }
 
     private function saveRedis($key) {

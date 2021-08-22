@@ -14,7 +14,7 @@
   </section>
   <div class="pt-5 pb-lg-3 row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
     @foreach($category->posts as $post)
-      <livewire:card-post :post="$post"/>
+      <livewire:component.card-post :post="$post"/>
     @endforeach
   </div>
 

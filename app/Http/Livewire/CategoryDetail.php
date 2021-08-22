@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Livewire;
 
 use App\Models\Category;
 use Artesaos\SEOTools\Traits\SEOTools;
+use Livewire\Component;
 
-class PostController extends Controller
+class CategoryDetail extends Component
 {
     use SEOTools;
 
-    public function byCategory($id)
-    {
+    public Category $category;
 
-        $category = Category::with([
+    public function mount($id)
+    {
+        $this->category = Category::with([
             'posts',
             'children',
             'children.posts',
@@ -21,7 +23,11 @@ class PostController extends Controller
         $this->seo()->setTitle('Chia sẽ lập trình', false);
         $this->seo()->setDescription('Trang web nhằm mục đích chia sẽ lập tình miễn phí cho người mới bắt đầu, và chia sẽ kiến thức lập trình đến mọi người');
         $this->seo()->opengraph()->setUrl(request()->url());
-
-        return view('by-category', compact('category'));
+    }
+    public function render()
+    {
+        return view('livewire.category')
+            ->extends('layouts.app')
+            ->section('main');
     }
 }

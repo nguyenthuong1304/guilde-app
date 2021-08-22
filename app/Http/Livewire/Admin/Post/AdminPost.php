@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 
-class PostDetailLivewire extends BaseComponent
+class AdminPost extends BaseComponent
 {
     use WithFileUploads, MixedComponent;
 
