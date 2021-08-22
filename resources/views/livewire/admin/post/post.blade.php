@@ -5,11 +5,13 @@
   .CodeMirror-fullscreen {
     z-index: 9999;
   }
+
   .CodeMirror {
     height: 400px;
   }
 
-  .CodeMirror, .CodeMirror-scroll {
+  .CodeMirror,
+  .CodeMirror-scroll {
     min-height: 200px;
   }
 </style>
@@ -28,9 +30,9 @@
   <div class="card mb-4">
     <form class="row g-3 p-3" method="post" wire:submit.prevent="{{$action}}">
       @csrf
+      @livewire('component.upload-content-file')
       <div class="col-md-6">
         <label for="name" class="form-label">Name</label>
-        <span wire:dirty wire:target="post.name">Updating...</span>
         <input type="text" class="form-control" id="name" name="name" wire:model.debounce.500ms="post.name" wire:change="updateSlug($event.target.value)">
         @error('post.name') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
       </div>
@@ -83,7 +85,7 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
       </div>
       <div class="col-12">
         <label for="tags" class="form-label">Tags</label>
-        <livewire:component.select class="w-100" :isMulti="true" :optChooses="$ids" :objects="$tags"/>
+        <livewire:component.select class="w-100" :isMulti="true" :optChooses="$ids" :objects="$tags" />
       </div>
       <div class="col-12">
         <div class="form-check">
@@ -132,29 +134,75 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
         drawTable: "Cmd-Alt-T"
       },
       showIcons: ["code", "table"],
-      spellChecker: true,
+      spellChecker: false,
       status: false,
-      // status: ["autosave", "lines", "words", "cursor", {
-      //   className: "keystrokes",
-      //   defaultValue: function(el) {
-      //     this.keystrokes = 0;
-      //     el.innerHTML = "0 Keystrokes";
-      //   },
-      //   onUpdate: function(el) {
-      //     el.innerHTML = ++this.keystrokes + " Keystrokes";
-      //   }
-      // }],
       styleSelectedText: false,
       tabSize: 4,
       toolbarTips: false,
+      toolbar: [{
+          name: "bold",
+          action: SimpleMDE.toggleBold,
+          className: "fa fa-bold",
+          title: "Bold",
+        },
+        {
+          name: "heading-1",
+          action: SimpleMDE.toggleHeading1,
+          className: "fa fa-header fa-header-x fa-header-1",
+          title: "Bold",
+        },
+        {
+          name: "heading-2",
+          action: SimpleMDE.toggleHeading2,
+          className: "fa fa-header fa-header-x fa-header-2",
+          title: "Bold",
+        },
+        {
+          name: "heading-3",
+          action: SimpleMDE.toggleHeading3,
+          className: "fa fa-header fa-header-x fa-header-3",
+          title: "Bold",
+        },
+        "|",
+        {
+          name: "link",
+          action: SimpleMDE.drawLink,
+          className: "fa fa-link no-mobile",
+          title: "Create Link",
+        },
+        "|",
+        {
+          name: "image",
+          action: () => $('#hidden-input-file').click(),
+          className: "fa fa-image",
+          title: "Upload Image",
+        },
+        {
+          name: "preview",
+          action: SimpleMDE.togglePreview,
+          className: "fa fa-eye no-disable",
+          title: "Toggle Preview",
+        },
+        {
+          name: "side-by-side",
+          action: SimpleMDE.toggleSideBySide,
+          className: "fa fa-columns no-disable no-mobile",
+          title: "Toggle Side by Side",
+        },
+        {
+          name: "fullscreen",
+          action: SimpleMDE.toggleFullScreen,
+          className: "fa fa-arrows-alt no-disable no-mobile",
+          title: "Toggle Fullscreen",
+        },
+
+      ]
     });
 
     let typingTimer;
-    const doneTypingInterval = 500;
-
     simplemde.codemirror.on('keyup', function() {
       clearTimeout(typingTimer);
-      typingTimer = setTimeout(doneTyping, doneTypingInterval);
+      typingTimer = setTimeout(doneTyping, 1000);
     });
 
     simplemde.codemirror.on('keydown', function() {
@@ -164,6 +212,13 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
     function doneTyping() {
       Livewire.emit('contentUpdated', simplemde.value())
     }
+
+    Livewire.on('uploaded', pathImage => {
+      let pos = simplemde.codemirror.getCursor();
+      simplemde.codemirror.setSelection(pos, pos);
+      simplemde.codemirror.replaceSelection(`![](${pathImage})`);
+      doneTyping();
+    })
   });
 </script>
 @stop
