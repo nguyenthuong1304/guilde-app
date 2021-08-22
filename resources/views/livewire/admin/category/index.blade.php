@@ -26,7 +26,7 @@
             <input class="form-control" placeholder="Search..." type="text" wire:model.debounce.500ms="search">
           </div>
         </div>
-        <div class="dataTable-container">
+        <div class="dataTable-container" wire:loading.class="overlay">
           <table id="datatablesSimple" class="dataTable-table table-responsive justify-content-center">
             <thead>
             <tr>

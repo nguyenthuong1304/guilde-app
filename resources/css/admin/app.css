@@ -521,3 +521,16 @@ body {
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
 }
+.overlay {
+  position: relative;
+}
+
+.overlay::before {
+  content: '';
+  background-color: rgba(0,0,0,0.5);
+  opacity: 0.5;
+  position: absolute;
+  z-index: 9999;
+  height: 100%;
+  width: 100%;
+}
