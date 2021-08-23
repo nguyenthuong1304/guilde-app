@@ -109,6 +109,8 @@
       if (eleRenderList.length) {
         let newList = '<ol class="list-unstyled">';
         $('#render').find('h1, h2, h3, h4, h5, h6').each((id, el) => {
+          let lv = el.tagName === 'H2' ? '2' : '1';
+          let idName = (Math.random() + 1).toString(36).substring(2);
           $(el).replaceWith(function () {
             let newTag;
             switch (el.tagName) {
@@ -120,13 +122,10 @@
               default: newTag = 'p';
             }
 
-            return `<${newTag}> ${$(this).html()} </${newTag}>`;
+            return `<${newTag} id="${idName}"> ${$(this).html()} </${newTag}>`;
           });
 
-          let lv = el.tagName === 'H2' ? '2' : '1';
-          let className = (Math.random() + 1).toString(36).substring(2);
-          $(el).attr('id', className);
-          newList += `<li class="list-level-${lv}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="${$(el).html()}"><a href="#${className}" class="text-decoration-none">${el.innerText}</a></li>`;
+          newList += `<li class="list-level-${lv}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="${$(el).html()}"><a href="#${idName}" class="text-decoration-none">${el.innerText}</a></li>`;
         });
         newList += '</ol>';
         eleRenderList.replaceWith(newList);
