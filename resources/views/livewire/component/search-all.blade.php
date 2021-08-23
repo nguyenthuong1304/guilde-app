@@ -16,7 +16,7 @@
         @endforeach
         @if($posts->hasMorePages())
           <hr>
-          <li><a class="dropdown-item text-center" href="/">Xem thêm</a></li>
+          <li><a class="dropdown-item text-center" href="{{ route('search', ['term' => $term]) }}">Xem thêm</a></li>
         @endif
       @else
         <li><a class="dropdown-item" href="javascript:void(0)">Nothing to show</a></li>
