@@ -40,6 +40,10 @@
       position: relative;
       overflow: hidden;
     }
+
+    #render img {
+      width: 100%;
+    }
   </style>
 @stop
 
