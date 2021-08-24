@@ -83,6 +83,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
   <script>
     $(document).ready(function() {
+      const renderEl = $('#render');
       var md = window.markdownit({
         html: true,
         linkify: true,
@@ -105,14 +106,15 @@
           return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
         }
       });
-      var result = md.render($('#render').data('markdown'));
-      $('#render').attr('data-markdown', '');
-      $('#render').html(result);
+      var result = md.render(renderEl.data('markdown'));
+      renderEl.attr('data-markdown', '');
+      renderEl.html(result);
       $('.linear-background').addClass('d-none');
       const eleRenderList = $('#render-list');
       if (eleRenderList.length) {
         let newList = '<ol class="list-unstyled">';
-        $('#render').find('h1, h2, h3, h4, h5, h6').each((id, el) => {
+        renderEl.find('img').attr('loading', 'lazy');
+        renderEl.find('h1, h2, h3, h4, h5, h6').each((id, el) => {
           let lv = el.tagName === 'H2' ? '2' : '1';
           let idName = (Math.random() + 1).toString(36).substring(2);
           $(el).replaceWith(function () {
