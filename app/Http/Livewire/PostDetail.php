@@ -29,7 +29,11 @@ class PostDetail extends Component
     {
         $this->post = Post::where([
             'slug' => $slug,
-        ])->with('tags:name')->firstOrFail();
+        ])->with([
+            'tags:name',
+            'prevPost:id,slug',
+            'nextPost:id,slug',
+        ])->firstOrFail();
         $this->setHash();
 
         $this->seo()->setTitle($this->post->name, false);

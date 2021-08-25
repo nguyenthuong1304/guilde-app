@@ -1,10 +1,9 @@
 <div>
   <div wire:ignore>
-    <select class="form-control" id="select2-dropdown" @if($isMulti) multiple @endif>
-      <option value="">Select Option</option>
-        @foreach($objects as $item)
-          <option value="{{ $item->$key }}">{{ $item->$value }}</option>
-        @endforeach
+    <select class="form-control select2-dropdown" id="select2-dropdown" @if($isMulti) multiple @endif>
+      @foreach($objects as $item)
+        <option value="{{ $item->$key }}">{{ $item->$value }}</option>
+      @endforeach
     </select>
   </div>
 </div>
@@ -17,6 +16,7 @@
       $('#select2-dropdown').select2({
         theme: "bootstrap-5",
         closeOnSelect: false,
+        placeholder: "Vui lòng chọn",
         @if($isMulti)
           tags: true,
           createTag: function (params) {

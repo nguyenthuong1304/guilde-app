@@ -87,6 +87,28 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
         <label for="tags" class="form-label">Tags</label>
         <livewire:component.select class="w-100" :isMulti="true" :optChooses="$ids" :objects="$tags" />
       </div>
+      <div class="col-12 row">
+        <div class="col-6">
+          <label for="prev" class="form-label">Bài viết trước</label>
+          <select class="form-control" name="prev" id="prev" wire:model.debounce.500ms="post.prev_id">
+            <option value="" selected>Vui lòng chọn {{ $this->post->category_id ? '' : 'danh mục'}}</option>
+            @foreach($postRelation as $postR)
+              <option value="{{ $postR->id }}" selected>{{ $postR->name }}</option>
+            @endforeach
+          </select>
+          @error('post.prev_id') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
+        </div>
+        <div class="col-6">
+          <label for="next" class="form-label">Bài viết kế tiếp</label>
+          <select class="form-control" name="next" id="next" wire:model.debounce.500ms="post.next_id">
+            <option value="" selected>Vui lòng chọn {{ $this->post->category_id ? '' : 'danh mục'}}</option>
+            @foreach($postRelation as $postR)
+              <option value="{{ $postR->id }}" selected>{{ $postR->name }}</option>
+            @endforeach
+          </select>
+          @error('post.next_id') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
+        </div>
+      </div>
       <div class="col-12">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" id="published" name="published" value="{{$post->published}}" wire:model.debounce.500ms="post.published">

@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Livewire\WithFileUploads;
 
 class AdminPost extends BaseComponent
@@ -30,18 +31,22 @@ class AdminPost extends BaseComponent
     public $ids = [];
     public array $rules = [];
     public array $validationAttributes = [
-        'form.name' => 'Name',
-        'form.slug' => 'Slug',
-        'form.description' => 'Description',
-        'form.content' => 'Content',
-        'form.image' => 'Image',
-        'form.category_id' => 'Category Id',
-        'form.published' => 'Published',
+        'post.name' => 'Name',
+        'post.slug' => 'Slug',
+        'post.description' => 'Description',
+        'post.content' => 'Content',
+        'post.image' => 'Image',
+        'post.category_id' => 'Category Id',
+        'post.published' => 'Published',
+        'post.next_id' => 'ID bài tiếp theo',
+        'post.prev_id' => 'ID bài trước đó',
     ];
+    public $postRelation;
 
     public function mount(int|null $id = null)
     {
         $this->post = Post::with('tags')->firstOrNew(['id' => $id]);
+        $this->updatePostRela($this->post->category_id);
         if ($cloneId = request()->get('clone_id')) {
             if ($postClone = Post::with('tags:id')->find($cloneId)) {
                 $this->post->name = $postClone->name . ' (copy)';
@@ -73,6 +78,16 @@ class AdminPost extends BaseComponent
     public function updated($field)
     {
         $this->validateOnly($field);
+    }
+
+    public function updatedPostCategoryId($val)
+    {
+        $this->updatePostRela($val);
+    }
+
+    private function updatePostRela($val)
+    {
+        $this->postRelation = $val ? Post::select('id', 'name')->where('category_id', $val)->get() : [];
     }
 
     public function store(FileService $fileService): void
@@ -165,6 +180,17 @@ class AdminPost extends BaseComponent
                     }
                 },
             ],
+            'post.prev_id' => [
+                'nullable',
+                'integer',
+                Rule::exists('posts', 'id')->where('category_id', $this->post->category_id),
+            ],
+            'post.next_id' => [
+                'nullable',
+                'integer',
+                Rule::exists('posts', 'id')->where('category_id', $this->post->category_id),
+                'different:post.prev_id',
+            ]
         ];
     }
 

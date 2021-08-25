@@ -19,6 +19,8 @@ class Post extends Model
         'published',
         'views',
         'published_at',
+        'next_id',
+        'prev_id',
     ];
 
     protected $searchable = [
@@ -49,5 +51,15 @@ class Post extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'post_tags');
+    }
+
+    public function prevPost()
+    {
+        return $this->belongsTo(self::class, 'prev_id');
+    }
+
+    public function nextPost()
+    {
+        return $this->belongsTo(self::class, 'next_id');
     }
 }
