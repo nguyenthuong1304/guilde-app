@@ -13,7 +13,7 @@ use App\Models\Post;
 Auth::routes();
 Route::get('/', PostIndex::class)->name('home');
 Route::get('/category/{id}', CategoryDetail::class)->name('category');
-Route::get('/post/{slug}', PostDetail::class)->name('detail');
+Route::get('bai-viet/{slug}', PostDetail::class)->name('detail');
 Route::get('/search', SearchPost::class)->name('search');
 
 Route::group([

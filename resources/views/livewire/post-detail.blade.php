@@ -10,22 +10,22 @@
         @livewire('component.post-detail', ['post' => $post])
       </div>
       <div class="row d-flex justify-content-between">
-        @if($post->prevPost)
-          <div class="col-3">
+        <div class="col-3">
+          @if($post->prevPost)
             <a
               href="{{ route('detail', ['id' => $post->prevPost->id, 'slug' => $post->prevPost->slug ]) }}"
-              class="btn btn-primary text-white text-decoration-none w-100"
+              class="btn btn-primary btn-sm text-white text-decoration-none w-100"
             >Bài trước</a>
-          </div>
-        @endif
-        @if($post->nextPost)
-          <div class="col-3">
+          @endif
+        </div>
+        <div class="col-3">
+          @if($post->nextPost)
             <a
               href="{{ route('detail', ['id' => $post->nextPost->id, 'slug' => $post->nextPost->slug ]) }}"
-              class="btn btn-primary text-white text-decoration-none w-100"
+              class="btn btn-primary btn-sm text-white text-decoration-none w-100"
             >Bài tiếp theo</a>
-          </div>
-        @endif
+          @endif
+        </div>
       </div>
       <hr>
       <div>
