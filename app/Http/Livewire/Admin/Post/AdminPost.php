@@ -46,7 +46,6 @@ class AdminPost extends BaseComponent
     public function mount(int|null $id = null)
     {
         $this->post = Post::with('tags')->firstOrNew(['id' => $id]);
-        $this->updatePostRela($this->post->category_id);
         if ($cloneId = request()->get('clone_id')) {
             if ($postClone = Post::with('tags:id')->find($cloneId)) {
                 $this->post->name = $postClone->name . ' (copy)';
@@ -54,9 +53,10 @@ class AdminPost extends BaseComponent
                 $this->post->category_id = $postClone->category_id;
                 $this->post->published = $postClone->published;
                 $this->ids = $postClone->tags->pluck('id')->toArray();
+                $this->post->prev_id = $cloneId;
             }
         }
-
+        $this->updatePostRela($this->post->category_id);
         if ($id) {
             $this->ids = $this->post->tags->pluck('id')->toArray();
         } else {
