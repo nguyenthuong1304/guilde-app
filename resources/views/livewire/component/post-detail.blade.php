@@ -115,23 +115,28 @@
         let newList = '<ol class="list-unstyled">';
         renderEl.find('img').attr('loading', 'lazy');
         renderEl.find('h1, h2, h3, h4, h5, h6').each((id, el) => {
-          let lv = el.tagName === 'H2' ? '2' : '1';
           let idName = (Math.random() + 1).toString(36).substring(2);
           $(el).replaceWith(function () {
-            let newTag;
+            let newTag, lv;
             switch (el.tagName) {
-              case 'H1': newTag = 'h2'; break;
-              case 'H2': newTag = 'h3'; break;
+              case 'H1':
+                newTag = 'h2';
+                lv = '1';
+              break;
+              case 'H2':
+                newTag = 'h3';
+                lv = '2';
+              break;
               case 'H3': newTag = 'h4'; break;
               case 'H4': newTag = 'h5'; break;
               case 'H5': newTag = 'h6'; break;
               default: newTag = 'p';
             }
-
+            if (el.tagName === 'H1' || el.tagName == 'H2') {
+              newList += `<li class="list-level-${lv}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="${$(el).html()}"><a href="#${idName}" class="text-decoration-none">${el.innerText}</a></li>`;
+            }
             return `<${newTag} id="${idName}"> ${$(this).html()} </${newTag}>`;
           });
-
-          newList += `<li class="list-level-${lv}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="${$(el).html()}"><a href="#${idName}" class="text-decoration-none">${el.innerText}</a></li>`;
         });
         newList += '</ol>';
         eleRenderList.replaceWith(newList);

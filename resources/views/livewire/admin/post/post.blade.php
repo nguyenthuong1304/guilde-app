@@ -111,7 +111,7 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
       </div>
       <div class="col-12">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="published" name="published" value="{{$post->published}}" wire:model.debounce.500ms="post.published">
+          <input class="form-check-input" type="checkbox" id="published" name="published" value="{{!!$post->published}}" wire:model.debounce.500ms="post.published">
           <label class="form-check-label" for="published">
             Published ?
           </label>
