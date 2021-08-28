@@ -16,8 +16,10 @@ class CategoryDetail extends Component
     {
         $this->category = Category::with([
             'posts' => fn ($q) => $q->published(),
-            'children',
+            'children' => fn ($q) => $q->withCount(['posts' => fn ($q) => $q->published()]),
             'children.posts' => fn ($q) => $q->published(),
+        ])->withCount([
+            'posts' => fn ($q) => $q->published(),
         ])->findOrFail($id);
 
         $this->seo()->setTitle('Chia sẽ lập trình', false);
