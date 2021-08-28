@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Post;
 
 use App\Http\Livewire\Admin\BaseComponent;
+use App\Models\Category;
 use App\Models\Post;
 use Livewire\WithPagination;
 
@@ -13,8 +14,15 @@ class AdminPostIndex extends BaseComponent
     public string $search = '';
     public string $orderBy = 'created_at';
     public string $order = 'asc';
+    public $categories;
+    public $category_id;
 
-    protected $queryString = ['search', 'orderBy'];
+    protected $queryString = ['search', 'orderBy', 'category_id' => ['except' => '']];
+
+    public function mount()
+    {
+        $this->categories = Category::select('id', 'name')->get();
+    }
 
     public function render()
     {
@@ -23,6 +31,7 @@ class AdminPostIndex extends BaseComponent
                 $q->where('name', 'like', '%'.$this->search.'%')
                     ->orWhere('description', 'like', '%'.$this->search.'%');
             })
+                ->when($this->category_id, fn ($q) => $q->where('category_id', $this->category_id))
                 ->orderBy($this->orderBy, $this->order)
                 ->paginate($this->perPage),
         ])

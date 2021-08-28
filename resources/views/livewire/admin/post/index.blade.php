@@ -44,14 +44,22 @@
                 <option value="published_at">Ngày xuất bản</option>
                 <option value="published">Trạng tháin</option>
               </select>
-
-              <label>
-                - Thứ tự:
-                <select class="dataTable-selector" wire:model.debounce.500ms="order">
-                  <option value="desc">Giảm dần</option>
-                  <option value="asc">Tăng dần</option>
-                </select>
-            </label>
+            <label>
+              - Thứ tự:
+              <select class="dataTable-selector" wire:model.debounce.500ms="order">
+                <option value="desc">Giảm dần</option>
+                <option value="asc">Tăng dần</option>
+              </select>
+          </label>
+          <label>
+              - Danh mục:
+              <select class="dataTable-selector" wire:model.debounce.500ms="category_id">
+                <option value="">Theo danh mục</option>
+                @foreach($categories as $cate)
+                  <option value="{{ $cate->id }}"> {{ $cate->name }}</option>
+                @endforeach
+              </select>
+          </label>
           </div>
           <div class="dataTable-search">
             <input class="form-control" placeholder="Search..." type="text" wire:model.debounce.500ms="search">
