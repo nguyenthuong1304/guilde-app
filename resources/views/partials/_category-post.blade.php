@@ -5,7 +5,7 @@
         <hr>
         <h3 class="fw-light">
           <a class="text-decoration-none text-dark" href="{{ route('category', $category->id) }}">
-            {{ $category->name }} ( {{ $category->posts->count() }} posts @if($category->children_count)- {{ $category->children_count }} Danh mục con @endif)
+            {{ $category->name }} ( {{ $category->posts_count }} bài viết @if($category->children_count)- {{ $category->children_count }} danh mục con @endif)
           </a>
           <hr>
         </h3>

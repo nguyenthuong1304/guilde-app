@@ -15,9 +15,9 @@ class CategoryDetail extends Component
     public function mount($id)
     {
         $this->category = Category::with([
-            'posts',
+            'posts' => fn ($q) => $q->published(),
             'children',
-            'children.posts',
+            'children.posts' => fn ($q) => $q->published(),
         ])->findOrFail($id);
 
         $this->seo()->setTitle('Chia sẽ lập trình', false);

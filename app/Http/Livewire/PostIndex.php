@@ -26,7 +26,7 @@ class PostIndex extends Component
         $this->seo()->twitter()->setSite('@LuizVinicius73');
         $this->seo()->jsonLd()->setType('Article');
 
-        $categories = Category::withCount('children')
+        $categories = Category::withCount(['children', 'posts' => fn ($q) => $q->published()])
             ->whereNull('parent_id')
             ->where('show_index_page', 1)
             ->orderBy('id')
