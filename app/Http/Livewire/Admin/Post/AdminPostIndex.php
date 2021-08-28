@@ -17,7 +17,11 @@ class AdminPostIndex extends BaseComponent
     public $categories;
     public $category_id;
 
-    protected $queryString = ['search', 'orderBy', 'category_id' => ['except' => '']];
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'orderBy',
+        'category_id' => ['except' => ''],
+    ];
 
     public function mount()
     {

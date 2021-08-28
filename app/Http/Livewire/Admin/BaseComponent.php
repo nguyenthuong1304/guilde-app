@@ -11,7 +11,7 @@ class BaseComponent extends Component
     protected string $extends = 'layouts.admin.app';
     protected string $section = 'main';
     protected array $data = [];
-    public $perPage = 10;
+    public $perPage = 20;
 
     public function render()
     {

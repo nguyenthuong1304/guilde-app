@@ -42,18 +42,19 @@ class AdminPost extends BaseComponent
         'post.prev_id' => 'ID bài trước đó',
     ];
     public $postRelation;
+    public $cloneId;
 
     public function mount(int|null $id = null)
     {
         $this->post = Post::with('tags')->firstOrNew(['id' => $id]);
-        if ($cloneId = request()->get('clone_id')) {
-            if ($postClone = Post::with('tags:id')->find($cloneId)) {
+        if ($this->cloneId = request()->get('clone_id')) {
+            if ($postClone = Post::with('tags:id')->find($this->cloneId)) {
                 $this->post->name = $postClone->name . ' (copy)';
                 $this->post->slug = $postClone->slug . '-copy';
                 $this->post->category_id = $postClone->category_id;
                 $this->post->published = $postClone->published;
                 $this->ids = $postClone->tags->pluck('id')->toArray();
-                $this->post->prev_id = $cloneId;
+                $this->post->prev_id = $this->cloneId;
             }
         }
         $this->updatePostRela($this->post->category_id);
@@ -101,6 +102,9 @@ class AdminPost extends BaseComponent
                 $this->post->published_at = now();
             }
             $this->savePost();
+            if ($this->cloneId) {
+                Post::where('id', $this->cloneId)->update(['next_id' => $this->post->id]);
+            }
         } catch (Exception $e) {
             dd($e);
         }
