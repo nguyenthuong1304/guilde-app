@@ -18,6 +18,10 @@
 
   @if($category->children->count())
     <div class="separator"><h3>Danh mục con</h3></div>
-    @include('partials._category-post', ['categories' => $category->children, 'numPost' => 5])
+    @include('partials._category-post', [
+      'categories' => $category->children,
+      'numPost' => 5,
+      'isSub' => true,
+    ])
   @endif
 </div>

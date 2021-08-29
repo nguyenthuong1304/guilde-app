@@ -18,7 +18,7 @@
     @endforeach
   </div>
 
-  @if($category->posts_count > $numPost)
+  @if(!isset($isSub) && $category->posts_count > $numPost)
     <div class="d-flex justify-content-center">
       <a href="{{ route('category', $category->id) }}" class="text-center"> Xem thêm </a>
     </div>

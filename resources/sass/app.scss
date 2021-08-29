@@ -5,6 +5,10 @@
 @import 'global';
 @import "~select2/dist/css/select2.css";
 
+a {
+  text-decoration: none;
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
