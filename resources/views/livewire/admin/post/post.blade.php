@@ -119,7 +119,7 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
         </div>
       </div>
       <div class="col-12">
-        <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">Submit</button>
+        <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">{{ $post->id ? 'Cập nhật' : 'Tạo mới' }}</button>
       </div>
     </form>
   </div>

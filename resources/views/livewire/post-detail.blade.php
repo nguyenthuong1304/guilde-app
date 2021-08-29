@@ -68,14 +68,11 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
     $(document).ready(function () {
-      console.log($('#loadPost').offset().top)
       let isLoaded = false
       $(window).scroll(function() {
-        if($(this).scrollTop() + $(window).height() >= $('#loadPost').offset().top) {
-          if (!isLoaded) {
-            Livewire.emit('loadPost');
-            isLoaded = true;
-          }
+        if(($(this).scrollTop() + $(window).height() >= $('#loadPost').offset().top) && !isLoaded) {
+          Livewire.emit('loadPost');
+          isLoaded = true;
         }
       });
     })
