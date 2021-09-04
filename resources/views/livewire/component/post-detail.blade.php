@@ -94,7 +94,7 @@
         highlight: function(str, lang) {
           if (lang && hljs.getLanguage(lang)) {
             try {
-              return '<pre class="hljs border"><code>' +
+              return `<pre class="hljs border"><code class=language-${lang}>` +
                 hljs.highlight(str, {
                   language: lang,
                   ignoreIllegals: true
