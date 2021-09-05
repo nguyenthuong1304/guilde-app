@@ -72,7 +72,7 @@
   <div class="mb-2" id="render" class="d-none" data-markdown="{{ $post->content }}"></div>
   <div class="mb-4">
     @foreach($post->tags as $tag)
-      <a href="{{ route('search') }}?tag_id={{ $tag->id }}" class="tags">
+      <a href="{{ route('search') }}?tag={{ $tag->name }}" class="tags">
         {{ $tag->name }}
       </a>
     @endForeach

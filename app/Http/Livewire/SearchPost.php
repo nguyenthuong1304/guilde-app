@@ -11,8 +11,11 @@ class SearchPost extends Component
     use SEOTools;
 
     public $term;
-    public $tag_id;
-    protected $queryString = ['term', 'tag_id'];
+    public $tag;
+    protected $queryString = [
+        'term' => ['except' => ''],
+        'tag' => ['except' => ''],
+    ];
 
     public string $orderBy = 'created_at';
 
@@ -20,15 +23,16 @@ class SearchPost extends Component
     {
         $this->seo()->setTitle('Chia sẽ lập trình', false);
 
-        $query = Post::query();
+        $query = Post::select();
 
         if ($this->term) {
             $query->search($this->term);
         }
 
-        if ($this->tag_id) {
+        if ($this->tag) {
             $query->leftJoin('post_tags as pt', 'pt.post_id', '=', 'posts.id')
-                ->where('pt.tag_id', $this->tag_id);
+                ->leftJoin('tags as t', 't.id', '=', 'pt.tag_id')
+                ->where('t.name', $this->tag);
         }
 
         $posts = $query->orderBy('posts.'.$this->orderBy, 'desc')

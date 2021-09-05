@@ -30,12 +30,12 @@ class PostDetail extends Component
         $this->post = Post::where([
             'slug' => $slug,
         ])->with([
-            'tags:name',
+            'tags:name,id',
             'prevPost:id,slug',
             'nextPost:id,slug',
         ])->firstOrFail();
-        $this->setHash();
 
+        $this->setHash();
         $this->seo()->setTitle($this->post->name, false);
         $keyWords = $this->post->tags->pluck('name')->implode(', ');
         SEOMeta::setTitle($this->post->name, false);
