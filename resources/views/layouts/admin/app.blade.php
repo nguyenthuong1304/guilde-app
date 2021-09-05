@@ -53,6 +53,7 @@
     let msg = JSON.parse('{{ json_encode(session('message')) }}'.replace(/&quot;/g,'"'));
     toastr[msg.type](msg.message)
   @endif
+
 </script>
 @stack('scripts')
 </body>

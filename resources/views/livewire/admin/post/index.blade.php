@@ -13,6 +13,9 @@
         <a class="col-3 btn me-2 btn-info btn-sm text-white">
           <i class="bi bi-file-earmark-arrow-down-fill"></i> Export
         </a>
+        <a href="{{ route('image_content') }}" class="col-3 btn me-2 btn-info btn-sm text-white">
+          <i class="bi bi-file-earmark-image-fill"></i> List image content
+        </a>
       </div>
       <div class="col-4 d-flex justify-content-end">
         <a a class="btn btn-primary btn-sm text-white" href="{{ route('post.create') }}"> <i class="bi bi-plus"></i> Create </a>

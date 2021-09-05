@@ -1,9 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Admin\AdminCategory;
 use App\Http\Livewire\Admin\Dashboard;
 use App\Http\Livewire\Admin\Post\AdminPost;
 use App\Http\Livewire\Admin\Post\AdminPostIndex;
+use App\Http\Livewire\Admin\Post\ImageContent;
 use App\Http\Livewire\CategoryDetail;
 use App\Http\Livewire\PostIndex;
 use App\Http\Livewire\PostDetail;
@@ -26,6 +28,7 @@ Route::group([
     Route::group([
         'prefix' => 'posts',
     ], function () {
+        Route::get('/image-content', ImageContent::class)->name('image_content');
         Route::get('/', AdminPostIndex::class)->name('post_index');
         Route::get('/new', AdminPost::class)->name('post.create');
         Route::get('/{id}/edit', AdminPost::class)->name('post.edit');
