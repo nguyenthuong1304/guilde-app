@@ -5,11 +5,6 @@
     top: 10px !important;
   }
 
-  .dropdown-item {
-    width: 300px;
-  }
-
-
   @media (min-width: 576px) {
     #search-all {
       margin-top: 10px;

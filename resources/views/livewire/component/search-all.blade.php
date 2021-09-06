@@ -9,7 +9,7 @@
     </div>
   </div>
   @if ($term)
-    <ul class="dropdown-menu show" aria-labelledby="dropdownMenuButton1">
+    <ul class="dropdown-menu show w-100" aria-labelledby="dropdownMenuButton1">
       @if($posts->count())
         @foreach($posts as $post)
           <li><a class="dropdown-item text-dots p-2" href="{{ route('detail', $post->slug) }}">{{ $post->name }}</a></li>
