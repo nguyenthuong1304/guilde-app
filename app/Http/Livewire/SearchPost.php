@@ -23,7 +23,7 @@ class SearchPost extends Component
     {
         $this->seo()->setTitle('Chia sẽ lập trình', false);
 
-        $query = Post::select();
+        $query = Post::query();
 
         if ($this->term) {
             $query->search($this->term);

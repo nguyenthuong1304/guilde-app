@@ -69,7 +69,9 @@
     </div>
   </div>
   <div class="linear-background"></div>
-  <div class="mb-2" id="render" class="d-none" data-markdown="{{ $post->content }}"></div>
+  <div class="mb-2" id="render" class="d-none">
+    {{ $post->content }}
+  </div>
   <div class="mb-4">
     @foreach($post->tags as $tag)
       <a href="{{ route('search') }}?tag={{ $tag->name }}" class="tags">
@@ -106,8 +108,7 @@
           return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
         }
       });
-      var result = md.render(renderEl.data('markdown'));
-      renderEl.attr('data-markdown', '');
+      var result = md.render(renderEl.text());
       renderEl.html(result);
       $('.linear-background').addClass('d-none');
       const eleRenderList = $('#render-list');
