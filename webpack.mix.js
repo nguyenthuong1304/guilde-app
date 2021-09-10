@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
+  .js('resources/js/select2.js', 'public/js/admin')
   .sass('resources/sass/app.scss', 'public/css')
   .css('resources/css/admin/app.css', 'public/admin/css')
   .css('resources/css/app.css', 'public/css/style.css')
