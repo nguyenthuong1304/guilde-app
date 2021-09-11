@@ -48,5 +48,12 @@ jobs:
     - name: Migrate DB
       run: php artisan migrate --seed
 
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+        cache: 'npm'
+    - run: npm install
+    - run: npm run dev
+
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: vendor/bin/phpunit
