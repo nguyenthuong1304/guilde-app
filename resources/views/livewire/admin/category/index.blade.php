@@ -26,7 +26,11 @@
             <input class="form-control" placeholder="Search..." type="text" wire:model.debounce.500ms="search">
           </div>
         </div>
-        <div class="dataTable-container" wire:loading.class="overlay">
+        <div
+          class="dataTable-container"
+          wire:loading.class="overlay"
+          wire:target="search"
+        >
           <table id="datatablesSimple" class="dataTable-table table-responsive justify-content-center">
             <thead>
             <tr>
@@ -167,8 +171,13 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success close-modal" data-bs-dismiss="modal" wire:click.prevent="save()">Submit</button>
+          <button
+            type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">Close</button>
+          <button
+            type="submit"
+            class="btn btn-success close-modal"
+            wire:click.prevent="save()"
+          >Submit</button>
         </div>
       </div>
     </div>
@@ -188,6 +197,13 @@
 $(document).ready(function () {
   $('#modal-create').on('hidden.bs.modal', function () {
     Livewire.emit('resetInput')
+  });
+
+  window.livewire.on('alert', data => {
+    const type = data[0];
+    if (type === 'success') {
+      $('#modal-create').modal('hide');
+    }
   });
 });
 </script>

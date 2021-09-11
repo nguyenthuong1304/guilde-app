@@ -83,6 +83,7 @@ class AdminPost extends BaseComponent
 
     public function updatedPostCategoryId($val)
     {
+        $this->post->next_id = $this->post->prev_id = null;
         $this->updatePostRela($val);
     }
 

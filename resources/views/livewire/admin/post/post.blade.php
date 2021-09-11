@@ -61,7 +61,7 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
         <select id="category_id" name="category_id" class="form-select" wire:model.debounce.500ms="post.category_id">
           <option selected>Choose...</option>
           @foreach($categories as $category)
-          <option value="{{ $category->id }}"> {{ $category->name }}</option>
+            <option value="{{ $category->id }}"> {{ $category->name }}</option>
           @endforeach
         </select>
         @error('post.category_id') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
@@ -91,7 +91,7 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
         <div class="col-6">
           <label for="prev" class="form-label">Bài viết trước</label>
           <select class="form-control" name="prev" id="prev" wire:model.debounce.500ms="post.prev_id">
-            <option value="">Vui lòng chọn {{ $this->post->category_id ? '' : 'danh mục'}}</option>
+            <option selected>Vui lòng chọn {{ $this->post->category_id ? '' : 'danh mục'}}</option>
             @foreach($postRelation as $postR)
               <option value="{{ $postR->id }}">{{ $postR->name }}</option>
             @endforeach
@@ -101,7 +101,7 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
         <div class="col-6">
           <label for="next" class="form-label">Bài viết kế tiếp</label>
           <select class="form-control" name="next" id="next" wire:model.debounce.500ms="post.next_id">
-            <option value="">Vui lòng chọn {{ $this->post->category_id ? '' : 'danh mục'}}</option>
+            <option selected>Vui lòng chọn {{ $this->post->category_id ? '' : 'danh mục'}}</option>
             @foreach($postRelation as $postR)
               <option value="{{ $postR->id }}">{{ $postR->name }}</option>
             @endforeach
