@@ -69,7 +69,7 @@
     </div>
   </div>
   <div class="linear-background"></div>
-  <div class="mb-2" id="render" class="d-none">
+  <div class="mb-2 d-none" id="render">
     {{ $post->content }}
   </div>
   <div class="mb-4">
@@ -133,7 +133,7 @@
               case 'H5': newTag = 'h6'; break;
               default: newTag = 'p';
             }
-            if (el.tagName === 'H1' || el.tagName == 'H2') {
+            if (el.tagName === 'H1' || el.tagName === 'H2') {
               newList += `<li class="list-level-${lv}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="${$(el).html()}"><a href="#${idName}" class="text-decoration-none">${el.innerText}</a></li>`;
             }
             return `<${newTag} id="${idName}"> ${$(this).html()} </${newTag}>`;
@@ -142,6 +142,7 @@
         newList += '</ol>';
         eleRenderList.replaceWith(newList);
         $('[data-bs-toggle="tooltip"]').tooltip();
+        renderEl.removeClass('d-none');
       }
     });
   </script>
