@@ -48,7 +48,7 @@ class AdminCategory extends BaseComponent
     {
         return view('livewire.admin.category.index', [
             'categories' => Category::where('name', 'like', '%'.$this->search.'%')
-                ->orderBy('created_at')
+                ->orderBy('order', 'desc')
                 ->paginate($this->perPage),
             'parents' => Category::select('id', 'name')->whereNull('parent_id')->get(),
         ])
@@ -110,6 +110,11 @@ class AdminCategory extends BaseComponent
     {
         $cate = Category::find($id);
         $cate->update(['show_index_page' => !$cate->show_index_page]);
+    }
+
+    public function setOrder(int $val, Category $cate)
+    {
+        $cate->update(['order' => $val]);
     }
 
     public function rules()

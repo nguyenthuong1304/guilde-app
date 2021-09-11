@@ -30,40 +30,43 @@
           <table id="datatablesSimple" class="dataTable-table table-responsive justify-content-center">
             <thead>
             <tr>
-              <th>
-                <a href="#" class="dataTable-sorter">{{ (__("fields.image")) }}</a>
+              <th class="text-center">
+                <a href="#">{{ (__("fields.image")) }}</a>
               </th>
-              <th>
-                <a href="#" class="dataTable-sorter">{{ (__("fields.id")) }}</a>
+              <th class="text-center">
+                <a href="#">{{ (__("fields.id")) }}</a>
               </th>
-              <th>
-                <a href="#" class="dataTable-sorter">{{ (__("fields.name")) }}</a>
+              <th class="text-center">
+                <a href="#">{{ (__("fields.name")) }}</a>
               </th>
-              <th>
-                <a href="#" class="dataTable-sorter">{{ (__("fields.parent_id")) }}</a>
+              <th class="text-center">
+                <a href="#">{{ (__("fields.parent_id")) }}</a>
               </th>
-              <th>
-                <a href="#" class="dataTable-sorter">{{ (__("fields.created_at")) }}</a>
+              <th class="text-center">
+                <a href="#">{{ (__("fields.created_at")) }}</a>
               </th>
-              <th>
-                <a href="#" class="dataTable-sorter">Show on index</a>
+              <th class="text-center">
+                <a href="#">Show on index</a>
               </th>
-              <th>
-                <a href="#" class="dataTable-sorter">{{ (__("fields.actions")) }}</a>
+              <th class="text-center">
+                <a href="#">Thứ tự</a>
+              </th>
+              <th class="text-center">
+                <a href="#">{{ (__("fields.actions")) }}</a>
               </th>
             </tr>
             </thead>
             <tbody>
             @foreach($categories as $category)
               <tr :wire:key="{{ $category->id }}">
-                <td style="vertical-align: middle">
+                <td class="align-middle">
                   <img src="{{ $category->image_show }}" alt="" height="100" width="100">
                 </td>
-                <td style="vertical-align: middle">{{ $category->id }}</td>
-                <td style="vertical-align: middle">{{ $category->name }}</td>
-                <td style="vertical-align: middle">{{ $category->parent_id }}</td>
-                <td style="vertical-align: middle">{{ $category->created_at }}</td>
-                <td style="vertical-align: middle" class="text-center">
+                <td class="align-middle">{{ $category->id }}</td>
+                <td class="align-middle">{{ $category->name }}</td>
+                <td class="align-middle">{{ $category->parent_id }}</td>
+                <td class="align-middle">{{ $category->created_at }}</td>
+                <td class="align-middle" class="text-center">
                   <div class="form-check form-switch">
                     <input
                       class="form-check-input"
@@ -73,7 +76,21 @@
                     >
                   </div>
                 </td>
-                <td style="vertical-align: middle">
+                <td class="align-middle text-center">
+                  @empty($category->parent_id)
+                    <div>
+                      <input
+                        type="text"
+                        class="form-control form-control-sm w-50 m-auto"
+                        value="{{ $category->order }}"
+                        wire:change="setOrder($event.target.value, {{ $category }})"
+                      >
+                    </div>
+                  @else
+                    -
+                  @endif
+                </td>
+                <td class="align-middle">
                   <button class="btn btn-sm btn-warning" wire:click="edit({{ $category->id }} )" data-bs-toggle="modal" data-bs-target="#modal-create">
                     <i class="bi bi-pencil-fill"></i>
                   </button>

@@ -29,7 +29,7 @@ class PostIndex extends Component
         $categories = Category::withCount(['children', 'posts' => fn ($q) => $q->published()])
             ->whereNull('parent_id')
             ->where('show_index_page', 1)
-            ->orderBy('id')
+            ->orderBy('order')
             ->get();
 
         $categories->each(fn ($cate) => $cate->load([
