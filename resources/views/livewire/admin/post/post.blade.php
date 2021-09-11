@@ -127,6 +127,7 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
 @section('scripts')
 <script src="{{ mix('admin/simplemde.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
 <script>
   $(document).ready(function() {
     var simplemde = new SimpleMDE({

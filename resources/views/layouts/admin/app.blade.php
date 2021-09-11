@@ -26,7 +26,6 @@
 </div>
 @livewireScripts
 <script src="{{ mix('js/app.js') }}"></script>
-<script src="{{ mix('js/admin/select2.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 @yield('scripts')
 <script>
