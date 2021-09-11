@@ -21,17 +21,18 @@ trait Search
         return $term;
     }
 
-    protected function scopeSearch($query, $term) {
-        $columns = implode(',', $this->searchable);
+    protected function scopeSearch($query, $term, $prefix = null) {
 
         // $query->whereRaw(
         //     "MATCH ({$columns}) AGAINST (? IN BOOLEAN MODE)",
         //     $this->buildWildCards($term)
         // );
-
-        $query->where('name', 'like' ,'%'.$this->buildWildCards($term).'%')
-            ->orWhere('description', 'like', '%'.$this->buildWildCards($term).'%')
-            ->orWhere('slug', 'like', '%'.$this->buildWildCards($term).'%');
+        $query->where(function ($q) use ($term, $prefix) {
+            foreach ($this->searchable as $field) {
+                $field = $prefix ? "$prefix.$field" : $field;
+                $q->orWhere($field, 'like' ,'%'.$this->buildWildCards($term).'%');
+            }
+        });
 
         return $query;
     }

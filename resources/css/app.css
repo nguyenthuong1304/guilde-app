@@ -17,7 +17,7 @@
   margin-right: 5px;
 }
 .search-wrapper.focused {
-  width: 200px;
+  width: 100%;
 }
 .search-wrapper.focused input {
   width: 100%;

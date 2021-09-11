@@ -26,13 +26,13 @@ class SearchPost extends Component
         $query = Post::query();
 
         if ($this->term) {
-            $query->search($this->term);
+            $query->search($this->term, 'posts');
         }
 
         if ($this->tag) {
             $query->leftJoin('post_tags as pt', 'pt.post_id', '=', 'posts.id')
                 ->leftJoin('tags as t', 't.id', '=', 'pt.tag_id')
-                ->where('t.name', $this->tag);
+                ->where('t.name', 'like', "%$this->tag%");
         }
 
         $posts = $query->orderBy('posts.'.$this->orderBy, 'desc')
