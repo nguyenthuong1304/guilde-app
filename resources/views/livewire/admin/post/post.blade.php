@@ -1,6 +1,7 @@
 @section('styles')
 <link rel="stylesheet" href="{{ mix('admin/simplemde.min.css') }}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.8-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <style>
   .CodeMirror-fullscreen {
     z-index: 9999;
