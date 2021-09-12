@@ -18,3 +18,10 @@
   </div>
 </div>
 @stop
+@push('scripts')
+<script>
+(function () {
+  setTimeout(() => $('#render').removeClass('d-none'), 1000)
+}())
+</script>
+@endpush

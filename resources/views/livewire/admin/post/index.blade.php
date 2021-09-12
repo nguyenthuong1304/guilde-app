@@ -138,7 +138,7 @@
                   <a class="btn btn-sm btn-info" href="{{ route('post.detail', $post->slug) }}" :wire:key="$post->id">
                     <i class="bi bi-eye"></i>
                   </a>
-                  <button class="btn btn-sm btn-danger" wire:click="deleteId({{ $post->id }} )" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <button class="btn btn-sm btn-danger delete-post" data-id="{{ $post->id }}">
                     <i class="bi bi-trash-fill"></i>
                   </button>
                   <a class="btn btn-sm btn-primary text-white" href="{{ route('post.create', ['clone_id' => $post->id]) }}" :wire:key="$post->id" title="Copy thể loại">
@@ -157,3 +157,15 @@
     </div>
   </div>
 </div>
+@section('scripts')
+<script>
+  $(document).ready(function () {
+    $('body').on('click', '.delete-post', function () {
+      const id = $(this).attr('data-id');
+      if (confirm('Bạn chắc chứ ?')) {
+        Livewire.emit('deletePost', id)
+      }
+    });
+  });
+</script>
+@stop

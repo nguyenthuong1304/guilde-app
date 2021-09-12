@@ -11,6 +11,8 @@ class AdminPostIndex extends BaseComponent
 {
     use WithPagination;
 
+    protected $listeners = ['deletePost'];
+
     public string $search = '';
     public string $orderBy = 'created_at';
     public string $order = 'asc';
@@ -41,5 +43,10 @@ class AdminPostIndex extends BaseComponent
         ])
         ->extends($this->extends)
         ->section($this->section);
+    }
+
+    public function deletePost($id)
+    {
+        Post::destroy($id);
     }
 }

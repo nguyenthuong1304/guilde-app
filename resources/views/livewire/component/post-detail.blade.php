@@ -69,8 +69,8 @@
     </div>
   </div>
   <div class="linear-background"></div>
-  <div class="mb-2 d-none" id="render">
-    {{ $post->content }}
+  <div class="mb-2 d-none" id="render" data-markdown="{{ $post->content }}">
+
   </div>
   <div class="mb-4">
     @foreach($post->tags as $tag)
@@ -108,8 +108,9 @@
           return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
         }
       });
-      var result = md.render(renderEl.text());
+      var result = md.render(renderEl.attr('data-markdown'));
       renderEl.html(result);
+      renderEl.removeAttr('data-markdown');
       $('.linear-background').addClass('d-none');
       const eleRenderList = $('#render-list');
       if (eleRenderList.length) {

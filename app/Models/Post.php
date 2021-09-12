@@ -29,6 +29,16 @@ class Post extends Model
         'slug',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($post) {
+            $post->prevPost?->update(['next_id' => null]);
+            $post->nextPost?->update(['prev_id' => null]);
+        });
+    }
+
     public function getImageShowAttribute()
     {
         return $this->image ? asset('storage/'.$this->image) : '/images/no-image.png';
