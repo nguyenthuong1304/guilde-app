@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Category;
+use App\Models\Configuration;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Livewire\Component;
 
@@ -22,7 +23,8 @@ class CategoryDetail extends Component
             'posts' => fn ($q) => $q->published(),
         ])->findOrFail($id);
 
-        $this->seo()->setTitle('Chia sẽ lập trình', false);
+        $config = Configuration::select('title')->first();
+        $this->seo()->setTitle($config->title ?? 'Chia sẻ và học hỏi', false);
         $this->seo()->setDescription('Trang web nhằm mục đích chia sẽ lập tình miễn phí cho người mới bắt đầu, và chia sẽ kiến thức lập trình đến mọi người');
         $this->seo()->opengraph()->setUrl(request()->url());
     }

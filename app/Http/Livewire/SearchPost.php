@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Configuration;
 use App\Models\Post;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Livewire\Component;
@@ -21,7 +22,8 @@ class SearchPost extends Component
 
     public function render()
     {
-        $this->seo()->setTitle('Chia sẽ lập trình', false);
+        $config = Configuration::select('title')->first();
+        $this->seo()->setTitle($config->title ?? 'Chia sẻ và học hỏi', false);
 
         $query = Post::query();
 

@@ -15,15 +15,17 @@ class PostIndex extends Component
 
     public int $numPost;
 
+    public $config;
+
     public function mount()
     {
-        $config = Configuration::first();
-        $this->numPost = $config->total_post_a_cate ?? 5;
+        $this->config = Configuration::select('title', 'total_post_a_cate')->first();
+        $this->numPost = $this->config->total_post_a_cate ?? 5;
     }
 
     public function render()
     {
-        $this->seo()->setTitle('Chia sẽ lập trình', false);
+        $this->seo()->setTitle($this->config->title ?? 'Chia sẻ và học hỏi', false);
         $this->seo()->setDescription('Trang web nhằm mục đích chia sẽ lập tình miễn phí cho người mới bắt đầu, và chia sẽ kiến thức lập trình đến mọi người');
         $this->seo()->opengraph()->setUrl(request()->url());
         $this->seo()->opengraph()->addProperty('site_name', 'SharingPrograming');
