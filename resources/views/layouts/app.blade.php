@@ -10,7 +10,7 @@
   {!! JsonLd::generate() !!}
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <title>Chia sẻ lập trình</title>
+  <title>{{ $config->title ?? "Chia sẻ và học hỏi" }}</title>
   <link href="{{ mix('css/app.css') }}" rel="stylesheet">
   <link href="{{ mix('css/style.css') }}" rel="stylesheet">
   @livewireStyles

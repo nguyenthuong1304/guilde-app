@@ -15,5 +15,5 @@
   </nav>
 </div>
 <div class="rounded banner mb-3">
-  <img src="{{ asset('images/banner.jpeg') }}" alt="">
+  <img src="{{ asset($config->banner ?? 'images/banner.jpeg') }}" alt="">
 </div>

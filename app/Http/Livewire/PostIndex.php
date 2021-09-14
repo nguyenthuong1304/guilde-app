@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Category;
+use App\Models\Configuration;
 use Livewire\Component;
 use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
 
@@ -12,7 +13,13 @@ class PostIndex extends Component
 
     public bool $isLoadMore = false;
 
-    public int $numPost = 5;
+    public int $numPost;
+
+    public function mount()
+    {
+        $config = Configuration::first();
+        $this->numPost = $config->total_post_a_cate ?? 5;
+    }
 
     public function render()
     {

@@ -24,7 +24,6 @@ Route::group([
 ], function () {
     Route::get('/', Dashboard::class)->name('dashboard');
     Route::get('/categories', AdminCategory::class)->name('category_index');
-
     Route::group([
         'prefix' => 'posts',
     ], function () {
@@ -38,4 +37,6 @@ Route::group([
             return view('livewire.admin.post.detail', ['post' => $post]);
         })->name('post.detail');
     });
+
+    Route::get('configurations', \App\Http\Livewire\Admin\ConfigurationSystem::class)->name('configs');
 });

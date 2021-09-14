@@ -21,7 +21,7 @@
       <a class="link-secondary" href="#"></a>
     </div>
     <div class="col-md-4 col-sm-12 text-center">
-      <a class="blog-header-logo text-dark" href="/">Chia sẻ lập trình</a>
+      <a class="blog-header-logo text-dark" href="/">{{ $config->title ?? 'Chia sẻ và học hỏi' }}</a>
     </div>
     <div class="col-md-4 col-sm-12 d-flex justify-content-end align-items-center" id="search-all">
       @if(request()->route()->getName() != 'search')
