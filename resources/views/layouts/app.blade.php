@@ -16,12 +16,14 @@
   @livewireStyles
   @yield('styles')
   @stack('styles')
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-76J57Y9TKH"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-207669744-1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-76J57Y9TKH');
+
+    gtag('config', 'UA-207669744-1');
   </script>
 </head>
 
