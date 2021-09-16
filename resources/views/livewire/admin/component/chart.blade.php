@@ -1,4 +1,4 @@
-<div wire:ignore wire:key={{ $chartId }}>
+<div wire:ignore.self>
   <canvas id="{{ $chartId }}" height="{{ $height }}"></canvas>
 </div>
 
