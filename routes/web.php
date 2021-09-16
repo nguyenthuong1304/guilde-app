@@ -12,13 +12,6 @@ use App\Http\Livewire\PostDetail;
 use App\Http\Livewire\SearchPost;
 use App\Models\Post;
 
-use Spatie\Analytics\Period;
-
-Route::get('/test', function () {
-    $analyticsData = Analytics::fetchVisitorsAndPageViews(Period::days(7));
-    dd($analyticsData);
-});
-
 Auth::routes();
 Route::get('/', PostIndex::class)->name('home');
 Route::get('/category/{id}', CategoryDetail::class)->name('category');

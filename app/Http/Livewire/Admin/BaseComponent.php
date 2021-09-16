@@ -20,7 +20,7 @@ class BaseComponent extends Component
             ->section($this->section);
     }
 
-    function setPerPage($number)
+    public function setPerPage($number)
     {
         $this->perPage = $number;
     }
