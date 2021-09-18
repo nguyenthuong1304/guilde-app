@@ -58,7 +58,6 @@ class Dashboard extends BaseComponent
                 'max-results' => 10,
             ],
         );
-
         return collect($response['rows'] ?? [])->map(fn (array $dateRow) => [
             'pageTitle' => $dateRow[1],
             'visitors' => (int) $dateRow[2],

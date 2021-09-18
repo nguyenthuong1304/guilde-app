@@ -6,11 +6,13 @@ use App\Models\Configuration;
 use App\Models\Post;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class SearchPost extends Component
 {
-    use SEOTools;
+    use SEOTools, WithPagination;
 
+    protected $paginationTheme = 'bootstrap';
     public $term;
     public $tag;
     protected $queryString = [

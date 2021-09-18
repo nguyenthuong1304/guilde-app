@@ -21,10 +21,10 @@
           </ul>
         </div>
       </div>
-      <div wire:loading>
-        <div class="mt-3 text-center">Đang tìm kiếm ....</div>
-      </div>
-      <div wire:loading.remove>
+      <div>
+        <div wire:loading>
+          @include('vendor.loader')
+        </div>
         @foreach($posts as $post)
         <div class="d-flex text-muted pt-3">
           <img class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="35" height="35" src="{{ $post->image_show }}" alt="">
@@ -38,6 +38,7 @@
         @endforeach
       </div>
     </div>
+    {{ $posts->links() }}
   </div>
   <div class="col-3 col-md-12"></div>
 </div>
