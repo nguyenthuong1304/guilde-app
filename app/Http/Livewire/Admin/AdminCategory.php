@@ -9,6 +9,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\Rule;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use Str;
 
 class AdminCategory extends BaseComponent
 {
@@ -124,12 +125,17 @@ class AdminCategory extends BaseComponent
         return [
             'category.id' => 'nullable|integer',
             'category.name' => 'required|string|max:100|unique:categories,name,'.$id,
-            'category.description' => 'nullable|string|max:1000',
+            'category.slug' => 'required|string|max:1000|unique:categories,slug,'.$id,
             'image' => 'nullable|file|mimes:jpeg,jpg,png|max:4000',
             'category.parent_id' => [
                 'nullable',
                 Rule::exists('categories', 'id')->where('deleted_at')->where('parent_id')
             ],
         ];
+    }
+
+    public function updateSlug($name): void
+    {
+        $this->category->slug = Str::slug($name);
     }
 }

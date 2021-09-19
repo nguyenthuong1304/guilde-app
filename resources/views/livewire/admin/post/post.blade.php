@@ -151,7 +151,7 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
       },
       promptURLs: true,
       renderingConfig: {
-        singleLineBreaks: false,
+        singleLineBreaks: true,
         codeSyntaxHighlighting: true,
       },
       shortcuts: {
@@ -159,10 +159,10 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
       },
       showIcons: ["code", "table"],
       spellChecker: false,
-      status: false,
+      status: true,
       styleSelectedText: false,
-      tabSize: 4,
-      toolbarTips: false,
+      tabSize: 2,
+      toolbarTips: true,
       toolbar: [{
           name: "bold",
           action: SimpleMDE.toggleBold,
@@ -188,6 +188,12 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
           title: "Bold",
         },
         "|",
+        {
+          name: "table",
+          action: SimpleMDE.drawTable,
+          className: "fa fa-table",
+          title: "Tạo bảng",
+        },
         {
           name: "link",
           action: SimpleMDE.drawLink,

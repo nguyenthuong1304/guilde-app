@@ -32,7 +32,6 @@ class PostIndex extends Component
         $this->seo()->opengraph()->addProperty('description', 'Technology Articles Platform from Asia, filled with latest information on Programming Languages and Frameworks. Ruby on Rails / PHP / Swift / Unity / Java /.Net');
         $this->seo()->opengraph()->addProperty('og:locale', 'en-us');
         $this->seo()->opengraph()->addProperty('og:locale', 'vn');
-        $this->seo()->twitter()->setSite('@LuizVinicius73');
         $this->seo()->jsonLd()->setType('Article');
 
         $categories = Category::withCount(['children', 'posts' => fn ($q) => $q->published()])

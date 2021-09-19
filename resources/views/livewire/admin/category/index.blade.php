@@ -143,14 +143,14 @@
               @csrf
               <input type="hidden" value="{{ $category->id }}" wire:model="category.id">
               <div class="form-group">
-                <label for="exampleInputPassword1">Enter Name</label>
-                <input type="text" wire:model.lazy="category.name" class="form-control input-sm" placeholder="Name">
+                <label for="exampleInputPassword1">Tên danh mục</label>
+                <input type="text" wire:model.lazy="category.name" class="form-control input-sm" placeholder="Tên danh mục" wire:change="updateSlug($event.target.value)">
                 @error('category.name') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
               </div>
               <div class="form-group">
-                <label>Enter description</label>
-                <textarea rows="10" cols="20" class="form-control input-sm" placeholder="Enter description" wire:model.lazy="category.description"></textarea>
-                @error('category.description') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
+                <label for="exampleInputPassword1">Slug</label>
+                <input type="text" wire:model.lazy="category.slug" class="form-control input-sm" placeholder="slug">
+                @error('category.name') <span class="text-danger fs-6 fw-light"> {{ $message }} </span> @enderror
               </div>
               <div class="form-group">
                 <label>Image</label>

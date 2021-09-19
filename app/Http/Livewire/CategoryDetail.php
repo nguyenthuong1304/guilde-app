@@ -13,7 +13,7 @@ class CategoryDetail extends Component
 
     public Category $category;
 
-    public function mount($id)
+    public function mount($slug)
     {
         $this->category = Category::with([
             'posts' => fn ($q) => $q->published(),
@@ -21,13 +21,14 @@ class CategoryDetail extends Component
             'children.posts' => fn ($q) => $q->published(),
         ])->withCount([
             'posts' => fn ($q) => $q->published(),
-        ])->findOrFail($id);
+        ])->where('slug', $slug)->firstOrFail();
 
         $config = Configuration::select('title')->first();
-        $this->seo()->setTitle($config->title ?? 'Chia sẻ và học hỏi', false);
+        $this->seo()->setTitle($config->title . ' - ' . $this->category->name ?? 'Chia sẻ và học hỏi', false);
         $this->seo()->setDescription('Trang web nhằm mục đích chia sẽ lập tình miễn phí cho người mới bắt đầu, và chia sẽ kiến thức lập trình đến mọi người');
         $this->seo()->opengraph()->setUrl(request()->url());
     }
+
     public function render()
     {
         return view('livewire.category')
