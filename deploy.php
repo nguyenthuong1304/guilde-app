@@ -26,7 +26,7 @@ host('3.139.84.92')
 
 task('build:fast', function () {
     run('cd {{deploy_path}} && git pull origin master');
-    run('cd {{deploy_path}} && php artisan config:cache');
+    run('cd {{deploy_path}} && php artisan view:cache; php artisan config:cache');
 });
 
 task('deploy:fast', function () {

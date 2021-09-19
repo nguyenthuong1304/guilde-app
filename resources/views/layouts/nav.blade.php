@@ -6,7 +6,7 @@
         @if($cate->children->count())
         <div class="dropdown-menu">
           @foreach($cate->children as $cateC)
-            <a class="p-2 link-secondary" href="{{ route('category', $cateC) }}"> {{ $cate->name}} </a>
+            <a class="p-2 link-secondary" href="{{ route('category', $cateC) }}"> {{ $cateC->name}} </a>
           @endforeach
         </div>
         @endif
