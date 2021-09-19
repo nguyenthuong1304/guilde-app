@@ -31,12 +31,15 @@
       @foreach($files as $file)
         <div class="col">
           <div class="card container-1">
-            <img src="{{ $file['url'] }}" class="card-img-top w-100 img-content">
+            <img src="{{ $file['url'] }}" class="card-img-top w-100 img-content" loading="lazy">
             <input type="checkbox" class="checkbox" data-value="{{ $file['path'] }}"/>
           </div>
         </div>
       @endforeach
     </div>
+  </div>
+  <div class="row">
+    {{ $files->links('vendor.livewire.bootstrap') }}
   </div>
 </div>
 @section('scripts')
