@@ -14,8 +14,8 @@ use App\Models\Post;
 
 Auth::routes();
 Route::get('/', PostIndex::class)->name('home');
-Route::get('/category/{category:slug}', CategoryDetail::class)->name('category');
-Route::get('bai-viet/{slug}', PostDetail::class)->name('detail');
+Route::get('/category/{slug}', CategoryDetail::class)->name('category');
+Route::get('bai-viet/{id}', PostDetail::class)->name('detail');
 Route::get('/search', SearchPost::class)->name('search');
 
 Route::group([

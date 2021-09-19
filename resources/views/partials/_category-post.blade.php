@@ -4,7 +4,7 @@
       <div class="">
         <hr>
         <h3 class="fw-light">
-          <a class="text-decoration-none text-dark" href="{{ route('category', $category->slug) }}">
+          <a class="text-decoration-none text-dark" href="{{ route('category', $category) }}">
             {{ $category->name }} ( {{ $category->posts_count }} bài viết @if($category->children_count)- {{ $category->children_count }} danh mục con @endif)
           </a>
           <hr>
@@ -20,7 +20,7 @@
 
   @if(!isset($isSub) && $category->posts_count > $numPost)
     <div class="d-flex justify-content-center">
-      <a href="{{ route('category', $category->slug) }}" class="text-center"> Xem thêm </a>
+      <a href="{{ route('category', $category) }}" class="text-center"> Xem thêm </a>
     </div>
   @endif
 @endforeach

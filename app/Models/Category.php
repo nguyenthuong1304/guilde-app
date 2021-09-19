@@ -11,7 +11,12 @@ class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $guarded = ['tags'];
+    protected $fillables = [
+        'name',
+        'parent_id',
+        'image',
+        'slug',
+    ];
 
     public static function booted()
     {

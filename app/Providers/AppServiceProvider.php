@@ -27,8 +27,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer(['layouts.nav'], function ($view) {
-            $categories = Category::select('id', 'name')
-                ->with('children:id,name,parent_id')
+            $categories = Category::select('id', 'name', 'slug')
+                ->with('children:id,name,parent_id,slug')
                 ->whereNull('parent_id')
                 ->orderBy('id')
                 ->get();
