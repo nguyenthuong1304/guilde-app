@@ -1,7 +1,7 @@
 <div>
   <section class="text-center container">
     <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
+      <div class="mx-auto">
         <h1 class="fw-light">{{ $category->name }} ({{ $category->posts->count() }} posts)</h1>
       </div>
     </div>
