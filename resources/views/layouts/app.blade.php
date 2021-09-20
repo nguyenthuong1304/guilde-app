@@ -13,6 +13,15 @@
   <title>{{ $config->title ?? "Chia sẻ và học hỏi" }}</title>
   <link href="{{ mix('css/app.css') }}" rel="stylesheet">
   <link href="{{ mix('css/style.css') }}" rel="stylesheet">
+  <style>
+    .dropdown-menu-center {
+      right: auto;
+      left: 50%;
+      -webkit-transform: translate(-50%, 0);
+      -o-transform: translate(-50%, 0);
+      transform: translate(-50%, 0);
+    }
+  </style>
   @livewireStyles
   @yield('styles')
   @stack('styles')

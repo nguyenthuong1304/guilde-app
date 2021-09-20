@@ -4,7 +4,7 @@
       <div class="dropdown main-cate" data-bs-toggle="dropdown" aria-expanded="false">
         <a class="p-2 dropdown-item link-secondary" href="{{ route('category', $cate) }}"> {{ $cate->name}} </a>
         @if($cate->children->count())
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu dropdown-menu-center">
           @foreach($cate->children as $cateC)
             <li>
               <a class="p-2 dropdown-item link-secondary" href="{{ route('category', $cateC) }}"> {{ $cateC->name}} </a>
