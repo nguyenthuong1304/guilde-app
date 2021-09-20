@@ -2,11 +2,11 @@
   <nav class="nav d-flex justify-content-between">
     @foreach($categories as $cate)
       <div class="dropdown main-cate">
-        <a class="p-2 link-secondary" href="{{ route('category', $cate) }}"> {{ $cate->name}} </a>
+        <a class="p-2 dropdown-item link-secondary" href="{{ route('category', $cate) }}"> {{ $cate->name}} </a>
         @if($cate->children->count())
-        <div class="dropdown-menu">
+        <div class="position-relative dropdown-menu">
           @foreach($cate->children as $cateC)
-            <a class="p-2 link-secondary" href="{{ route('category', $cateC) }}"> {{ $cateC->name}} </a>
+            <a class="p-2 dropdown-item link-secondary" href="{{ route('category', $cateC) }}"> {{ $cateC->name}} </a>
           @endforeach
         </div>
         @endif
