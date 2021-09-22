@@ -67,6 +67,7 @@ class PostDetail extends Component
                 ['category_id', '=', $this->post->category_id],
                 ['id', '!=', $this->post->id],
             ])
+                ->where('published', true)
                 ->limit(4)
                 ->orderBy('id', 'asc')
                 ->get();
@@ -75,6 +76,7 @@ class PostDetail extends Component
                 ['id', '!=', $this->post->id],
             ])
                 ->whereNotIn('id', $this->relates->pluck('id'))
+                ->where('published', true)
                 ->limit(4)
                 ->orderBy('views', 'desc')
                 ->get();

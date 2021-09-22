@@ -39,7 +39,8 @@ class SearchPost extends Component
                 ->where('t.name', 'like', "%$this->tag%");
         }
 
-        $posts = $query->orderBy('posts.'.$this->orderBy, 'desc')
+        $posts = $query->where('posts.published', true)
+            ->orderBy('posts.'.$this->orderBy, 'desc')
             ->paginate(40);
 
         return view('livewire.search-post', compact('posts'))
