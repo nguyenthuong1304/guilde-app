@@ -21,6 +21,9 @@
       -o-transform: translate(-50%, 0);
       transform: translate(-50%, 0);
     }
+    .cursor:hover {
+      cursor: pointer;
+    }
   </style>
   @livewireStyles
   @yield('styles')

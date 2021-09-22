@@ -16,7 +16,8 @@ class SearchAll extends Component
         if ($this->term) {
             $query->search($this->term);
         }
-        $posts = $query->orderBy('views')
+        $posts = $query->where('published', true)
+            ->orderBy('views')
             ->paginate(5);
 
         return view('livewire.component.search-all', [
