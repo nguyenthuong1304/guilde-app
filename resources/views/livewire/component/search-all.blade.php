@@ -1,5 +1,5 @@
 <div class="search-wrapper @if($term) focused @endif">
-  <div wire:ignore>
+  <div wire:ignore class="search cursor">
     <input class="btn search-input dropdown-toggle" type="text" placeholder="Search" wire:model.debounce.800ms="term" />
     <div wire:loading.grid>
       <i class="bi bi-arrow-repeat"></i>
