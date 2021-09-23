@@ -63,11 +63,11 @@
       @endif
     </div>
   </div>
-  <div class="card mb-4">
+  <!-- <div class="card mb-4">
     <div class="p-2 card-body">
       {!! nl2br(e($post->description)) !!}
     </div>
-  </div>
+  </div> -->
   <div class="linear-background"></div>
   <div class="mb-2 d-none" id="render" data-markdown="{{ $post->content }}">
 
