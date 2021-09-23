@@ -49,7 +49,7 @@
       </div>
     </div>
     <div class="col-lg-2 d-block d-lg-block d-md-none d-sm-none d-none" wire:ignore>
-      <div class="position-sticky" style="top: 2rem; height: 100vh; overflow-y: auto;">
+      <div class="position-sticky" style="top: 2rem; height: 80vh; overflow-y: auto;">
         <div class="mt-3">
           <h4 class="fst-italic">Mục lục</h4>
           <div id="render-list"></div>
