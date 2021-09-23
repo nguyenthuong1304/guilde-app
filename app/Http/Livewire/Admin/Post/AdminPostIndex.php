@@ -15,7 +15,7 @@ class AdminPostIndex extends BaseComponent
 
     public string $search = '';
     public string $orderBy = 'created_at';
-    public string $order = 'asc';
+    public string $order = 'desc';
     public $categories;
     public $category_id;
 

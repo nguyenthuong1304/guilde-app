@@ -9,34 +9,27 @@ class Dashboard extends BaseComponent
 {
     protected string $view = 'livewire.admin.dashboard';
 
-    public int $mostVisited = 7;
-
     public function render()
     {
-        $mostVisit = $this->fetchVisitorsAndPageViews();
+        $topDevices = $this->fetchMostVisitedPages();
         $topReferrers = $this->fetchTopReferrers();
         $topBrowsers = $this->fetchTopBrowsers();
 
-        return view('livewire.admin.dashboard', compact('mostVisit', 'topReferrers', 'topBrowsers'))
+        return view('livewire.admin.dashboard', compact('topDevices', 'topReferrers', 'topBrowsers'))
             ->extends($this->extends)
             ->section($this->section);
     }
 
 
-    public function updatedMostVisited()
-    {
-        $data = $this->fetchVisitorsAndPageViews()->toArray();
-
-        $this->emit('updateMostVisited', [
-            'chart_id' => 'mostVisited',
-            'data' => $data,
-        ]);
-    }
-
-    // private function fetchMostVisited()
-    // {
-    //     return Analytics::fetchVisitorsAndPageViews(Period::days($this->mostVisited), 10);
-    // }
+//    public function updatedMostVisited()
+//    {
+//        $data = $this->fetchMostVisitedPages()->toArray();
+//
+//        $this->emit('updateMostVisited', [
+//            'chart_id' => 'mostVisited',
+//            'data' => $data,
+//        ]);
+//    }
 
     private function fetchTopReferrers()
     {
@@ -47,22 +40,28 @@ class Dashboard extends BaseComponent
         return Analytics::fetchTopBrowsers(Period::months(1), 10);
     }
 
-    public function fetchVisitorsAndPageViews()
+    public function fetchMostVisitedPages()
     {
         $response = Analytics::performQuery(
-            Period::days(30),
-            'ga:users,ga:pageviews,ga:sessions',
+            Period::create(
+                now()->subDays(7),
+                now(),
+            ),
+            'ga:sessions,ga:pageviews,ga:sessionDuration',
             [
-                'dimensions' => 'ga:date,ga:pageTitle',
-                'sort' => '-ga:pageviews',
+                'dimensions' => 'ga:mobileDeviceInfo,ga:source',
+                'sort' => '-ga:source',
                 'max-results' => 10,
             ],
+            ['segment' => 'gaid::-14']
         );
-        return collect($response['rows'] ?? [])->map(fn (array $dateRow) => [
-            'pageTitle' => $dateRow[1],
-            'visitors' => (int) $dateRow[2],
-            'pageViews' => (int) $dateRow[3],
-            'sessions' => (int) $dateRow[4],
+
+        return collect($response['rows'] ?? [])->map(fn (array $pageRow) => [
+            'mobileDeviceInfo' => $pageRow[0],
+            'source' => $pageRow[1],
+            'sessions' => (int) $pageRow[2],
+            'pageviews' => (int) $pageRow[3],
+            'sessionDuration' => (int) $pageRow[4],
         ]);
     }
 }

@@ -50,56 +50,49 @@
       </div>
     </div>
   </div>
-  <div class="card mb-4" wire:ignore>
+  <div class="card mb-4">
     <div class="card-header d-flex justify-content-between">
-      <div><i class="fas fa-table me-1"></i>Top 15 bài có lượt visited cao nhất {{ $mostVisited }} ngày qua</div>
-      <div>
-        <select type="text" class="form-control form-control-sm" wire:model.debounce.500ms="mostVisited">
-          <option value="7">7 Ngày</option>
-          <option value="14">14 Ngày</option>
-          <option value="21">21 Ngày</option>
-          <option value="30">30 Ngày</option>
-        </select>
-      </div>
+      <div><i class="fas fa-table me-1"></i>Top 20 thiết bị có lượt truy cập nhiều nhấy hôm nhất tuần qua</div>
     </div>
     <div class="card-body" id="mostVisited-div">
-      @livewire('admin.component.chart', [
-        'height' => 75,
-        'chartId' => 'mostVisited',
-        'type' => 'line',
-        'labels' => $mostVisit->pluck('pageTitle'),
-        'datasets' => [
-          [
-            'label' => 'Page views',
-            'backgroundColor' => 'rgb(255, 99, 132)',
-            'borderColor' => 'rgb(255, 99, 132)',
-            'data' => $mostVisit->pluck('pageViews'),
-          ],
-          [
-            'label' => 'Visitors',
-            'backgroundColor' => 'rgb(54, 162, 235)',
-            'data' => $mostVisit->pluck('visitors'),
-            'type' => 'bar',
-          ],
-          [
-            'label' => 'Sessions',
-            'backgroundColor' => 'rgba(153, 102, 255, 0.2)',
-            'data' => $mostVisit->pluck('sessions'),
-            'type' => 'bar',
-          ]
-        ],
-        'options' => [
-          'animations' => [
-           'tension' => [
-            'duration' => 1000,
-            'easing' => 'linear',
-            'from' => 1,
-            'to' => 0,
-            'loop' => true,
-            ]
-          ]
-        ],
-      ], key(3))
+      <div
+        class="dataTable-container"
+        wire:loading.class="overlay"
+        wire:target="search"
+      >
+        <table id="datatablesSimple" class="dataTable-table table-responsive justify-content-center">
+          <thead>
+          <tr>
+            <th class="text-center">
+              <a href="#"> Thông tin thiết bị </a>
+            </th>
+            <th class="text-center">
+              <a href="#"> Nguồn </a>
+            </th>
+            <th class="text-center">
+              <a href="#">Phiên</a>
+            </th>
+            <th class="text-center">
+              <a href="#">Page views</a>
+            </th>
+            <th class="text-center">
+              <a href="#">Thời gian mobileDeviceInfo</a>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          @foreach($topDevices as $item)
+            <tr :wire:key="{{ $item['mobileDeviceInfo'] }}">
+              <td>{{ $item['mobileDeviceInfo'] }}</td>
+              <td class="text-center">{{ $item['source'] }}</td>
+              <td class="text-center">{{ $item['sessions'] }}</td>
+              <td class="text-center">{{ $item['pageviews'] }}</td>
+              <td class="text-center">{{ $item['sessionDuration'] }}</td>
+            </tr>
+          @endforeach
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
@@ -110,9 +103,8 @@
     window.livewire.on('updateMostVisited', ({ chart_id, data }) => {
       window[chart_id].data.datasets.forEach((dataset, key) => {
         dataset.data = data.map(item => [
-          item.pageViews,
-          item.visitors,
-          item.sessions
+          item.url,
+          item.pageViews
         ][key]);
       });
       window[chart_id].data.labels = data.map(item => item.pageTitle);
