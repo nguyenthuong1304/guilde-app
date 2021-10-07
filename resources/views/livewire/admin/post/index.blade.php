@@ -10,11 +10,11 @@
         <a class="col-3 btn me-2 btn-info btn-sm text-white">
           <i class="bi bi-file-earmark-arrow-up-fill"></i> Import
         </a>
-        <a class="col-3 btn me-2 btn-info btn-sm text-white">
-          <i class="bi bi-file-earmark-arrow-down-fill"></i> Export
-        </a>
         <a href="{{ route('image_content') }}" class="col-3 btn me-2 btn-info btn-sm text-white">
           <i class="bi bi-file-earmark-image-fill"></i> List image content
+        </a>
+        <a class="col-2 btn me-2 btn-warning btn-sm text-white" id="add-view">
+          Tăng view
         </a>
       </div>
       <div class="col-4 d-flex justify-content-end">
@@ -36,7 +36,6 @@
                 <option value="100">100</option>
               </select>
             </label>
-
             <label>
               - Sắp xếp theo:
               <select class="dataTable-selector" wire:model.debounce.500ms="orderBy">
@@ -72,6 +71,11 @@
             <thead>
               <tr>
                 <th>
+                  <a href="#" class="dataTable-sorter">
+                    <input type="checkbox" class="form-check-input" id="check-all">
+                  </a>
+                </th>
+                <th>
                   <a href="#" class="dataTable-sorter">ID</a>
                 </th>
                 <th>
@@ -103,6 +107,9 @@
             <tbody>
               @foreach($posts as $post)
               <tr :wire:key="{{ $post->id }}">
+                <td style="vertical-align: middle;" class="text-center">
+                  <input type="checkbox" value="{{ $post->id }}" class="form-check-input input-view">
+                </td>
                 <td style="vertical-align: middle;">
                   {{ $post->id }}
                 </td>
@@ -164,6 +171,24 @@
       const id = $(this).attr('data-id');
       if (confirm('Bạn chắc chứ ?')) {
         Livewire.emit('deletePost', id)
+      }
+    });
+    $('#check-all').click(function () {
+      $('.input-view').click();
+    });
+
+    $('#add-view').click(function () {
+      let inputs = $('.input-view:checked');
+      if (!inputs.length) {
+        toastr['warning']('Bạn chưa chọn bài viết nào!')
+      } else {
+        let views = prompt('Bạn muốn tăng bao nhiêu view');
+        if (views > 0) {
+          if (confirm('Bạn chắc chứ')) {
+            const ids = inputs.map((item, index) => $(index).val()).get();
+            Livewire.emit('addView', ids, views)
+          }
+        }
       }
     });
   });

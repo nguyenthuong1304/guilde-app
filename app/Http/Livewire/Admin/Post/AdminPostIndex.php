@@ -11,11 +11,11 @@ class AdminPostIndex extends BaseComponent
 {
     use WithPagination;
 
-    protected $listeners = ['deletePost'];
+    protected $listeners = ['deletePost', 'addView'];
 
     public string $search = '';
     public string $orderBy = 'created_at';
-    public string $order = 'desc';
+    public string $order = 'asc';
     public $categories;
     public $category_id;
 
@@ -48,5 +48,11 @@ class AdminPostIndex extends BaseComponent
     public function deletePost($id)
     {
         Post::destroy($id);
+    }
+
+    public function addView(array $ids, int $views)
+    {
+        Post::whereIn('id', $ids)
+            ->increment('views', $views);
     }
 }
