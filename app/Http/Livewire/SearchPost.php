@@ -34,9 +34,9 @@ class SearchPost extends Component
         }
 
         if ($this->tag) {
-            $query->leftJoin('post_tags as pt', 'pt.post_id', '=', 'posts.id')
-                ->leftJoin('tags as t', 't.id', '=', 'pt.tag_id')
-                ->where('t.name', 'like', "%$this->tag%");
+            $query->whereHas('tags', function ($q) {
+                return $q->where('tags.name', 'like', "%$this->tag%");
+            });
         }
 
         $posts = $query->where('posts.published', true)
