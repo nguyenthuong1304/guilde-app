@@ -15,6 +15,10 @@
           <div class="sb-nav-link-icon"><i class="bi bi-file-text-fill"></i></div>
           Bài viết
         </a>
+        <a class="nav-link" href="{{ route('mini_tips') }}">
+          <div class="sb-nav-link-icon"><i class="bi bi-code-square"></i></div>
+          Mini tips
+        </a>
         <a class="nav-link" href="{{ route('configs') }}">
           <div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>
           Cài đặt

@@ -17,6 +17,7 @@ Route::get('/', PostIndex::class)->name('home');
 Route::get('/category/{slug}', CategoryDetail::class)->name('category');
 Route::get('bai-viet/{slug}', PostDetail::class)->name('detail');
 Route::get('/search', SearchPost::class)->name('search');
+Route::get('/mini-tips', \App\Http\Livewire\MiniTipLivewire::class)->name('mini_tip_show');
 
 Route::group([
     'prefix' => 'admin',
@@ -24,6 +25,7 @@ Route::group([
 ], function () {
     Route::get('/', Dashboard::class)->name('dashboard');
     Route::get('/categories', AdminCategory::class)->name('category_index');
+    Route::get('/mini-tips', \App\Http\Livewire\Admin\MiniTipAdminLivewire::class)->name('mini_tips');
     Route::group([
         'prefix' => 'posts',
     ], function () {
