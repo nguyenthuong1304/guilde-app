@@ -17,7 +17,8 @@ decapitalize(<span class="hljs-string">'FooBar'</span>, <span class="hljs-keywor
          </div>
       </div>
    </span>
-</div>
+  <div class="mb-2 d-none" id="render" data-markdown="{{ $tip->content }}"></div>
+  </div>
 @section('styles')
     <style type="text/css">
       .sok-MarkdownSyntaxHighlighter {
@@ -1043,3 +1044,72 @@ decapitalize(<span class="hljs-string">'FooBar'</span>, <span class="hljs-keywor
       }
     </style>
 @endsection
+
+@section('scripts')
+  <script src="{{ asset('js/markdown-it.min.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      const renderEl = $('#render');
+      var md = window.markdownit({
+        html: true,
+        linkify: true,
+        typographer: true,
+        quotes: '“”‘’',
+        xhtmlOut: false,
+        langPrefix: 'language-',
+        highlight: function(str, lang) {
+          if (lang && hljs.getLanguage(lang)) {
+            try {
+              return `<pre class="hljs border"><code class=language-${lang}>` +
+                hljs.highlight(str, {
+                  language: lang,
+                  ignoreIllegals: true
+                }).value +
+                '</code></pre>';
+            } catch (__) {}
+          }
+
+          return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+        }
+      });
+      var result = md.render(renderEl.attr('data-markdown'));
+      renderEl.html(result);
+      renderEl.removeAttr('data-markdown');
+      $('.linear-background').addClass('d-none');
+      const eleRenderList = $('#render-list');
+      if (eleRenderList.length) {
+        let newList = '<ol class="list-unstyled">';
+        renderEl.find('img').attr('loading', 'lazy');
+        renderEl.find('h1, h2, h3, h4, h5, h6').each((id, el) => {
+          let idName = (Math.random() + 1).toString(36).substring(2);
+          $(el).replaceWith(function () {
+            let newTag, lv;
+            switch (el.tagName) {
+              case 'H1':
+                newTag = 'h2';
+                lv = '1';
+                break;
+              case 'H2':
+                newTag = 'h3';
+                lv = '2';
+                break;
+              case 'H3': newTag = 'h4'; break;
+              case 'H4': newTag = 'h5'; break;
+              case 'H5': newTag = 'h6'; break;
+              default: newTag = 'p';
+            }
+            if (el.tagName === 'H1' || el.tagName === 'H2') {
+              newList += `<li class="list-level-${lv}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="${$(el).html()}"><a href="#${idName}" class="text-decoration-none">${el.innerText}</a></li>`;
+            }
+            return `<${newTag} id="${idName}"> ${$(this).html()} </${newTag}>`;
+          });
+        });
+        newList += '</ol>';
+        eleRenderList.replaceWith(newList);
+        $('[data-bs-toggle="tooltip"]').tooltip();
+        renderEl.removeClass('d-none');
+      }
+    });
+  </script>
+@stop

@@ -25,7 +25,10 @@ Route::group([
 ], function () {
     Route::get('/', Dashboard::class)->name('dashboard');
     Route::get('/categories', AdminCategory::class)->name('category_index');
-    Route::get('/mini-tips', \App\Http\Livewire\Admin\MiniTipAdminLivewire::class)->name('mini_tips');
+    Route::get('/mini-tips', \App\Http\Livewire\Admin\MiniTip\AdminTipIndex::class)->name('mini_tips');
+    Route::get('/mini-tips/create', \App\Http\Livewire\Admin\MiniTip\AdminTip::class)->name('tip.create');
+    Route::get('/mini-tips/{id}/edit', \App\Http\Livewire\Admin\MiniTip\AdminTip::class)->name('tip.edit');
+
     Route::group([
         'prefix' => 'posts',
     ], function () {
