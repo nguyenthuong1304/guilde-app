@@ -23,7 +23,7 @@ class AdminTip extends BaseComponent
     {
         return view('livewire.admin.mini-tip.admin-tip', [
             'tip' => $this->tip,
-            'action' => !empty($this->tip->id) ? 'update' : 'store',
+            'action' => 'store',
         ])
         ->extends($this->extends)
         ->section($this->section);

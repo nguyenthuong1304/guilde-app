@@ -96,6 +96,7 @@ Nhấp vào 🕂 hoặc nhấn F11 để  bật/tắt chế độ toàn màn hì
         showIcons: ["code", "table"],
         spellChecker: false,
         status: true,
+        indentWithTabs: true,
         styleSelectedText: false,
         tabSize: 2,
         toolbarTips: true,
