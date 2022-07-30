@@ -87,7 +87,7 @@
                         type="text"
                         class="form-control form-control-sm w-50 m-auto"
                         value="{{ $category->order }}"
-                        wire:change="setOrder($event.target.value, {{ $category }})"
+                        wire:change="setOrder($event.target.value, {{ $category->id }})"
                       >
                     </div>
                   @else

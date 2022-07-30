@@ -1,84 +1,72 @@
-FROM php:8.0-fpm
+ARG TARGET_PHP_VERSION=8.0
+FROM php:${TARGET_PHP_VERSION}-fpm
 
-RUN apt-get update && apt-get install -y\
-    libpq-dev \
-    libmemcached-dev \
-    curl \
-    libjpeg-dev \
-    libpng-dev \
-    libfreetype6-dev \
-    libssl-dev \
-    libmcrypt-dev \
-    vim \
-    libzip-dev \
-    zip \
-    zlib1g-dev libicu-dev g++ \
-    libxrender1 \
-    libfontconfig \
-    libxtst6 \
-    libxi6 \
-    wget \
-    fonts-takao-gothic \
-    fonts-takao-mincho \
-    && rm -r /var/lib/apt/lists/*
+ARG SERVICE_DIR="."
+COPY ./.docker/.shared/scripts/ /tmp/scripts/
+RUN chmod +x -R /tmp/scripts/
 
-# configure gd library for php-extension for read write image
-RUN docker-php-ext-configure gd \
-    --with-gd \
-    --with-jpeg-dir=/usr/include/ \
-    --with-freetype-dir
-    # --enable-gd-native-ttf
+RUN /tmp/scripts/install_software.sh
 
-# configure intl for php - package for unicode and international language - go with libicu
-RUN docker-php-ext-configure intl
+# install php extensions
+RUN /tmp/scripts/install_php_extensions.sh
 
-# Install mongodb, xdebug
-RUN pecl install mongodb \
-    && pecl install redis \
-    && pecl install xdebug \
-    && docker-php-ext-enable xdebug
+# php config
+ADD ./.docker/php-fpm/config/conf.ini /usr/local/etc/php/conf.d
+ADD ./.docker/php-fpm/config/php-fpm.conf /usr/local/etc/php-fpm.d/
 
-RUN pecl install mcrypt-1.0.2 \
-    && docker-php-ext-enable mcrypt
-
-# Install extensions using the helper script provided by the base image for php
-RUN docker-php-ext-configure zip --with-libzip \
-    && docker-php-ext-install \
-    bcmath \
-    pdo_mysql \
-    pdo_pgsql \
-    gd \
-    intl \
-    zip
-
-ENV PHP_OPCACHE_VALIDATE_TIMESTAMPS="0" \
-    PHP_OPCACHE_MAX_ACCELERATED_FILES="10000" \
-    PHP_OPCACHE_MEMORY_CONSUMPTION="192" \
-    PHP_OPCACHE_MAX_WASTED_PERCENTAGE="10"
-
-RUN docker-php-ext-install opcache
-
-RUN wget https://github.com/h4cc/wkhtmltopdf-amd64/blob/master/bin/wkhtmltopdf-amd64?raw=true -O /usr/local/bin/wkhtmltopdf
+# install nginx and config
+RUN apt-get update -y \
+    && apt-get install -y nginx
 
 RUN usermod -u 1000 www-data
+RUN mkdir -p /var/www/html/public/ \
+    && touch /var/www/html/public/index.php
 
-WORKDIR /var/www/html
+# install unar
+# RUN apt-get update -y \
+#     && apt-get install -y unar
 
-ADD ./.docker/config/conf.ini /usr/local/etc/php/conf.d
-ADD ./.docker/config/opcache.ini /usr/local/etc/php/conf.d
-ADD ./.docker/config/php-fpm.conf /usr/local/etc/php-fpm.d/
+#source
+ARG APP_CODE_PATH="/var/www/html"
+COPY .  ${APP_CODE_PATH}
 
-RUN sed -i 's/^CipherString/#&/' /etc/ssl/openssl.cnf
-RUN chmod +x /usr/local/bin/wkhtmltopdf
+# Install dependencies
+RUN composer install --prefer-dist --no-scripts --no-autoloader && rm -rf /root/.composer
+
+# Copy codebase
+ARG APP_USER=www-data
+RUN chown -R ${APP_USER} ${APP_CODE_PATH}/storage/*
+
+# Finish composer
+RUN composer dump-autoload --no-scripts --optimize
+
+# workdir
+WORKDIR ${APP_CODE_PATH}
+
+# Install node js and npm
+
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g yarn
+
+# RUN npm install pm2 -g
+
+# Install supervisor
+RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" \
+    && python3 get-pip.py \
+    && pip3 install supervisor \
+    && echo "supervisord -c /etc/supervisord.conf" >> /root/.bashrc
+
+COPY .docker/supervisor/supervisord.conf /etc/supervisord.conf
+# COPY .docker/supervisor/laravel-echo.conf /etc/supervisor/conf.d/laravel-echo.conf
+COPY .docker/supervisor/laravel-horizon.conf /etc/supervisor/conf.d/laravel-horizon.conf
 
 # cleanup
-RUN apt-get clean \
-    rm -rf /var/lib/apt/lists/* \
-    /tmp/* \
-    /var/tmp/* \
-    /var/log/lastlog \
-    /var/log/faillog
+RUN /tmp/scripts/cleanup.sh
 
-EXPOSE 9000
+# clear .env
+# RUN cd ${APP_CODE_PATH} && rm -rf .env
 
-CMD [ "php-fpm" ]
+EXPOSE 80 443 6001
+
+CMD ["sh", "-c", "set -x; php artisan optimize:clear; php artisan migrate; /usr/local/sbin/php-fpm --force-stderr --fpm-config /usr/local/etc/php-fpm.d/php-fpm.conf; supervisord; nginx -g 'daemon off;'"]

@@ -113,9 +113,9 @@ class AdminCategory extends BaseComponent
         $cate->update(['show_index_page' => !$cate->show_index_page]);
     }
 
-    public function setOrder(int $val, Category $cate)
+    public function setOrder(int $val, $id)
     {
-        $cate->update(['order' => $val]);
+        Category::where(['id' => $id])->update(['order' => $val]);
     }
 
     public function rules()

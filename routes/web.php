@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GoogleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Admin\AdminCategory;
 use App\Http\Livewire\Admin\Dashboard;
@@ -13,6 +14,8 @@ use App\Http\Livewire\SearchPost;
 use App\Models\Post;
 
 Auth::routes();
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('login.provider');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 Route::get('/', PostIndex::class)->name('home');
 Route::get('/category/{slug}', CategoryDetail::class)->name('category');
 Route::get('bai-viet/{slug}', PostDetail::class)->name('detail');

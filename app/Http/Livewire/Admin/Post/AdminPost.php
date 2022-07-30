@@ -96,6 +96,7 @@ class AdminPost extends BaseComponent
     {
         $this->validate();
         try {
+            $this->post->user_id = auth()->id();
             if ($this->image instanceof UploadedFile) {
                 $this->post->image = $fileService->save($this->image, self::PATH);
             }

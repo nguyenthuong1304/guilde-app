@@ -34,11 +34,13 @@
       </label>
     </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit">{{ __('Login') }}</button>
-    @if (Route::has('password.request'))
+    <a href="{{ route('login.provider', 'google') }}"
+      class="btn btn-secondary">{{ __('Google Sign in') }}</a>
+    {{-- @if (Route::has('password.request'))
     <a class="btn btn-link" href="{{ route('password.request') }}">
       {{ __('Forgot Your Password?') }}
     </a>
-    @endif
+    @endif --}}
   </form>
 </main>
 @endsection
