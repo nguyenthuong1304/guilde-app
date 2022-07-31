@@ -24,4 +24,10 @@ class BaseComponent extends Component
     {
         $this->perPage = $number;
     }
+
+    protected function checkAccessAdmin() {
+        if (!auth()->user()->isAdmin()) {
+            abort(403);
+        }
+    }
 }

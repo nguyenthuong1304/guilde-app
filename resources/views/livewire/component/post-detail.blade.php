@@ -48,8 +48,18 @@
 @stop
 
 <div>
-  <div class="row">
-    <div class="d-flex justify-content-end bd-highlight fs-5">
+  <div class="row d-flex align-items-center mb-1">
+    <div class="col-lg-6 d-flex align-items-center">
+      <img
+        width="75"
+        height="75"
+        src="{{ $post->author->avatar ?? 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png' }}"
+        class="rounded-circle float-start d-block"
+        alt="..."
+      >
+      <p class="ms-2 d-block" style="margin:0; padding:0">{{ $post->author->name }}</p>
+    </div>
+    <div class="col-lg-6 d-flex justify-content-end bd-highlight fs-5">
       <div class="p-2 bd-highlight">
         <a href="javascript:void(0)" class="text-decoration-none" title="Lượt xem"><i class="bi bi-eye"></i> {{ $post->views}}</a>
       </div>

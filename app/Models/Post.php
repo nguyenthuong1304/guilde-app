@@ -21,6 +21,7 @@ class Post extends Model
         'published_at',
         'next_id',
         'prev_id',
+        'user_id',
     ];
 
     protected $searchable = [
@@ -71,5 +72,10 @@ class Post extends Model
     public function nextPost()
     {
         return $this->belongsTo(self::class, 'next_id');
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

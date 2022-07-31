@@ -11,6 +11,7 @@ use App\Http\Livewire\CategoryDetail;
 use App\Http\Livewire\PostIndex;
 use App\Http\Livewire\PostDetail;
 use App\Http\Livewire\SearchPost;
+use App\Http\Livewire\Admin\User\Index as UserIndex;
 use App\Models\Post;
 
 Auth::routes();
@@ -44,6 +45,12 @@ Route::group([
 
             return view('livewire.admin.post.detail', ['post' => $post]);
         })->name('post.detail');
+    });
+
+    Route::group([
+        'prefix' => 'users',
+    ], function () {
+        Route::get('/', UserIndex::class)->name('user_index');
     });
 
     Route::get('configurations', \App\Http\Livewire\Admin\ConfigurationSystem::class)->name('configs');

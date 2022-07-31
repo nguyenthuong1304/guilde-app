@@ -33,6 +33,7 @@ class PostDetail extends Component
             'tags:name,id',
             'prevPost:id,slug',
             'nextPost:id,slug',
+            'author:id,name,avatar',
         ])->firstOrFail();
 
         $this->setHash();

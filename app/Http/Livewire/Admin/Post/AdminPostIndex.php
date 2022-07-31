@@ -33,10 +33,14 @@ class AdminPostIndex extends BaseComponent
     public function render()
     {
         return view('livewire.admin.post.index', [
-            'posts' => Post::with(['category' => fn ($q) => $q->select('id', 'name') ])->where(function ($q) {
-                $q->where('name', 'like', '%'.$this->search.'%')
-                    ->orWhere('description', 'like', '%'.$this->search.'%');
-            })
+            'posts' => Post::with([
+                    'category' => fn ($q) => $q->select('id', 'name'),
+                    'author' => fn ($q) => $q->select('id', 'name'),
+                ])
+                ->where(function ($q) {
+                    $q->where('name', 'like', '%'.$this->search.'%')
+                        ->orWhere('description', 'like', '%'.$this->search.'%');
+                })
                 ->when($this->category_id, fn ($q) => $q->where('category_id', $this->category_id))
                 ->orderBy($this->orderBy, $this->order)
                 ->paginate($this->perPage),
@@ -47,6 +51,8 @@ class AdminPostIndex extends BaseComponent
 
     public function deletePost($id)
     {
+        $this->checkAccessAdmin();
+
         Post::destroy($id);
     }
 

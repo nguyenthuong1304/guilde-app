@@ -85,6 +85,9 @@
                   <a href="#" class="dataTable-sorter">Name</a>
                 </th>
                 <th>
+                  <a href="#" class="dataTable-sorter">Author</a>
+                </th>
+                <th>
                   <a href="#" class="dataTable-sorter">Description</a>
                 </th>
                 <th>
@@ -118,6 +121,9 @@
                 </td>
                 <td style="vertical-align: middle">
                   {{ $post->name }}
+                </td>
+                <td style="vertical-align: middle">
+                  {{ $post->author->name }}
                 </td>
                 <td class="max-text" style="vertical-align: middle">
                   {{ $post->description }}

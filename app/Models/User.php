@@ -26,6 +26,8 @@ class User extends Authenticatable
         'avatar',
     ];
 
+    protected $with = ['roles:id,name'];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -50,5 +52,10 @@ class User extends Authenticatable
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class, 'role_user');
+    }
+
+    public function isAdmin()
+    {
+        return $this->roles->some(fn ($r) => $r->name === 'Admin');
     }
 }

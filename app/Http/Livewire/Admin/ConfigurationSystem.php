@@ -7,10 +7,9 @@ use App\Models\User;
 use App\Rules\UrlRule;
 use App\Services\FileService;
 use Illuminate\Http\UploadedFile;
-use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class ConfigurationSystem extends Component
+class ConfigurationSystem extends BaseComponent
 {
     use WithFileUploads;
 
@@ -18,8 +17,15 @@ class ConfigurationSystem extends Component
     public $favicon, $banner, $password, $password_confirmation;
     public array $rules = [];
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function mount()
     {
+        $this->checkAccessAdmin();
+
         $this->configuration = Configuration::firstOrNew();
 
         if (!$this->configuration->title) {

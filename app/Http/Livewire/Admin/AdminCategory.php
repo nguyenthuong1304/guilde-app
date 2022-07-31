@@ -32,6 +32,8 @@ class AdminCategory extends BaseComponent
 
     public function mount()
     {
+        $this->checkAccessAdmin();
+
         $this->category = Category::firstOrNew(['id' => $this->category->id ?? null]);
     }
 
